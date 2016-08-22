@@ -1,0 +1,50 @@
+{
+  "name": "adelowo/gbowo",
+  "license": "MIT",
+  "description": "Unified API for hippy Nigerian payment gateways..Batteries included. Comes with adapters for Paystack and Amplifypay",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Lanre Adelowo",
+      "email": "me@adelowolanre.com",
+      "role": "Developer",
+      "homepage": "http://adelowolanre.com"
+    }
+  ],
+  "require": {
+    "php": "~7.0",
+    "guzzlehttp/guzzle": "^6.2"
+  },
+  "require-dev": {
+    "mockery/mockery": "^0.9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gbowo\\": "src/Gbowo"
+    },
+    "files": [
+      "src/Gbowo/functions.php"
+    ]
+  },
+  "suggest": {
+    "vlucas/phpdotenv": "Keep private tokens out of your code by loading them into `$_ENV` automagically from a .env file (~2.2)."
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Gbowo\\Tests\\": "tests"
+    }
+  },
+  "keywords": [
+    "Payments",
+    "Paystack",
+    "AmplifyPay",
+    "Nigerian Payments",
+    "php",
+    "github"
+  ],
+  "scripts": {
+    "post-install-cmd": [
+      "php -r \"if (!file_exists('../../../.env')){ copy('resources/.env.example', '../../../.env'); } else { file_put_contents('../../../.env', file_get_contents('resources/.env.example'), FILE_APPEND);}\""
+    ]
+  }
+}
