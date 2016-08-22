@@ -1,0 +1,22 @@
+<phpunit colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true"
+         strict="true"
+         verbose="true"
+         bootstrap="bootstrap.php">
+
+    <testsuites>
+        <testsuite>
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src/Gbowo</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>
