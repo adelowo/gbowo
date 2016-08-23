@@ -19,4 +19,8 @@
         </whitelist>
     </filter>
 
+    <php>
+        <env name="AMPLIFYPAY_MERCHANT_ID" value="SomeDummyStuff"/>
+        <env name="AMPLIFYPAY_API_KEY" value="SomeDummyKey"/>
+    </php>
 </phpunit>
