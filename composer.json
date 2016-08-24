@@ -27,7 +27,7 @@
     ]
   },
   "suggest": {
-    "vlucas/phpdotenv": "Keep private tokens out of your code by loading them into `$_ENV` automagically from a .env file (~2.2)."
+    "vlucas/phpdotenv": "Keep private tokens (secret keys) out of your code by loading them into `$_ENV` automagically from a .env file (~2.2)."
   },
   "autoload-dev": {
     "psr-4": {
@@ -41,10 +41,5 @@
     "Nigerian Payments",
     "php",
     "github"
-  ],
-  "scripts": {
-    "post-install-cmd": [
-      "php -r \"if (!file_exists('../../../.env')){ copy('resources/.env.example', '../../../.env'); } else { file_put_contents('../../../.env', file_get_contents('resources/.env.example'), FILE_APPEND);}\""
-    ]
-  }
+  ]
 }
