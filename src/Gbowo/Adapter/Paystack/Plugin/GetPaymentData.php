@@ -68,5 +68,4 @@ class GetPaymentData extends AbstractGetPaymentData
             ->get($link)
             ->getBody();
     }
-
 }

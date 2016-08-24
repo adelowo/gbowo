@@ -16,5 +16,4 @@ interface Plugin
 
 
     public function setAdapter(Adapter $adapter);
-
 }

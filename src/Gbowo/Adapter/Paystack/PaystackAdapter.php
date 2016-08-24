@@ -109,5 +109,4 @@ class PaystackAdapter implements Adapter
             ]
         ]);
     }
-
 }

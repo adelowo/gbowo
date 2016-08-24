@@ -88,5 +88,4 @@ class GetPaymentData extends AbstractGetPaymentData
         return $this->adapter->getHttpClient()
             ->get($link);
     }
-
 }

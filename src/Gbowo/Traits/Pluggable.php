@@ -73,12 +73,10 @@ trait Pluggable
 
         if (!method_exists($this->plugins[$accessor], 'handle')) {
             throw new LogicException(
-                get_class(
-                    $this->plugins[$accessor]) . ' is not a callable plugin as it does not have an handle method'
+                get_class($this->plugins[$accessor]) . ' is not a callable plugin as it does not have an handle method'
             );
         }
 
         return $this->plugins[$accessor];
     }
-
 }

@@ -16,5 +16,4 @@ interface Adapter
      * @return mixed
      */
     public function charge(array $data);
-
 }

@@ -70,7 +70,9 @@ class UnsubscribeCustomer extends AbstractPlugin
 
 
         if ($response->getStatusCode() !== 200) {
-            throw new InvalidHttpResponseException("Expected 200 HTTP status , got {$response->getStatusCode()} instead");
+            throw new InvalidHttpResponseException(
+                "Expected 200 HTTP status , got {$response->getStatusCode()} instead"
+            );
         }
 
         $response = json_decode($response, true);
@@ -91,5 +93,4 @@ class UnsubscribeCustomer extends AbstractPlugin
 
         return $response;
     }
-
 }

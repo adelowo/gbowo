@@ -17,5 +17,4 @@ interface Bill
      * @return mixed
      */
     public function chargeByToken($data);
-
 }

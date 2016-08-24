@@ -2,8 +2,8 @@
 
 namespace Gbowo\Adapter\Amplifypay\Plugin;
 
-use function GuzzleHttp\json_decode;
 use Gbowo\Contract\Customer\Bill;
+use function GuzzleHttp\json_decode;
 use Gbowo\Plugin\AbstractChargeWithToken;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
@@ -92,5 +92,4 @@ class ChargeWithToken extends AbstractChargeWithToken implements Bill
             ->post($link, array_merge($this->apiKeys, $data))
             ->getBody();
     }
-
 }

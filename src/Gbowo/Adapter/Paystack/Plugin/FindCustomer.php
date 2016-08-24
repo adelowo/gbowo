@@ -29,7 +29,7 @@ class FindCustomer extends AbstractFindUser
     {
         $link = $this->baseUrl . str_replace(":id", $id, self::CUSTOMER_LINK);
 
-        $result = json_decode($this->retrieveCustomerDetails($link) , true);
+        $result = json_decode($this->retrieveCustomerDetails($link), true);
 
         return $result;
     }
@@ -40,5 +40,4 @@ class FindCustomer extends AbstractFindUser
             ->get($link)
             ->getBody();
     }
-
 }

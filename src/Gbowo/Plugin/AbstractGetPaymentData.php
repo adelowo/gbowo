@@ -13,7 +13,7 @@ use Gbowo\Contract\Plugin\Plugin;
 abstract class AbstractGetPaymentData extends AbstractPlugin implements Plugin
 {
 
-    public function getPluginAccessor() : string
+    final public function getPluginAccessor() : string
     {
         return 'getPaymentData';
     }

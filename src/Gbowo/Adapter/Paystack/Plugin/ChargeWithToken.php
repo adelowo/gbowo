@@ -2,9 +2,8 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
-
-use GuzzleHttp\Client;
 use Gbowo\Contract\Customer\Bill;
+use function GuzzleHttp\json_decode;
 use Gbowo\Plugin\AbstractChargeWithToken;
 
 /**
@@ -28,12 +27,11 @@ class ChargeWithToken extends AbstractChargeWithToken implements Bill
 
     public function handle(string $token)
     {
-        return $this->chargeByToken($token);
+        return json_decode($this->chargeByToken($token), true);
     }
 
     public function chargeByToken($token)
     {
 
     }
-
 }

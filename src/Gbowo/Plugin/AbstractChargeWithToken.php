@@ -15,9 +15,8 @@ abstract class AbstractChargeWithToken extends AbstractPlugin implements Plugin
 {
 
 
-    public function getPluginAccessor() : string
+    final public function getPluginAccessor() : string
     {
         return 'chargeWithToken';
     }
-
 }

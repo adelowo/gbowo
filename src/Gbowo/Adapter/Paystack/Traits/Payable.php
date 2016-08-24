@@ -37,5 +37,4 @@ trait Payable
             "Response Status should be 200, but got {$data->getStatusCode()}"
         );
     }
-
 }

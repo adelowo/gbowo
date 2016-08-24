@@ -15,9 +15,8 @@ abstract class AbstractFindUser extends AbstractPlugin implements Plugin
 {
 
 
-    public function getPluginAccessor() : string
+    final public function getPluginAccessor() : string
     {
         return 'findCustomer';
     }
-
 }

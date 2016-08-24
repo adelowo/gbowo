@@ -50,5 +50,4 @@ class Gbowo
     {
         return $this->paymentAdapter->{$method}($arg[0]);
     }
-
 }
