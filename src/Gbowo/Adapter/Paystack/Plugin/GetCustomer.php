@@ -7,7 +7,7 @@ use function GuzzleHttp\json_decode;
 
 /**
  * @author Lanre Adelowo <me@adelowolanre.com>
- * Class FindCustomer
+ * Class GetCustomer
  * @package Gbowo\Adapter\Paystack\Plugin
  */
 class GetCustomer extends AbstractPlugin
