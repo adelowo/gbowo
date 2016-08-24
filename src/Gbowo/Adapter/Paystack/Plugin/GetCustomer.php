@@ -2,7 +2,7 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
-use Gbowo\Plugin\AbstractFindUser;
+use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
 
 /**
@@ -10,7 +10,7 @@ use function GuzzleHttp\json_decode;
  * Class FindCustomer
  * @package Gbowo\Adapter\Paystack\Plugin
  */
-class FindCustomer extends AbstractFindUser
+class GetCustomer extends AbstractPlugin
 {
 
     const CUSTOMER_LINK = '/customer/:id';
@@ -23,6 +23,14 @@ class FindCustomer extends AbstractFindUser
     public function __construct(string $baseUrl)
     {
         $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPluginAccessor() : string
+    {
+        return "getCustomer";
     }
 
     public function handle(int $id)

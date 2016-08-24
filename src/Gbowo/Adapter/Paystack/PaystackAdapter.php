@@ -9,7 +9,7 @@ use Gbowo\Contract\Adapter\Adapter;
 use function GuzzleHttp\json_decode;
 use Psr\Http\Message\ResponseInterface;
 use Gbowo\Adapter\Paystack\Traits\Payable;
-use Gbowo\Adapter\Paystack\Plugin\FindCustomer;
+use Gbowo\Adapter\Paystack\Plugin\GetCustomer;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
 use Gbowo\Adapter\Paystack\Plugin\ChargeWithToken;
 
@@ -55,7 +55,7 @@ class PaystackAdapter implements Adapter
 
     protected function registerPlugins()
     {
-        $this->addPlugin(new FindCustomer($this->baseUrl))
+        $this->addPlugin(new GetCustomer($this->baseUrl))
             ->addPlugin(new GetPaymentData($this->baseUrl))
             ->addPlugin(new ChargeWithToken($this->baseUrl));
     }
