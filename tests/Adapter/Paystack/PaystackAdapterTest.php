@@ -2,9 +2,9 @@
 
 namespace Gbowo\Tests\Adapter\Paystack;
 
-use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
+use Gbowo\Exception\InvalidHttpResponseException;
 
 class PaystackAdapterTest extends \PHPUnit_Framework_TestCase
 {

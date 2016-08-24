@@ -30,7 +30,7 @@ class UnsubscribeCustomer extends AbstractPlugin
      */
     const STATUS_DESCRIPTION_SUCCESS = "Successfull Request";
 
-    const STATUS_DESCRIPTION_FAILURE = "Successfull Request";
+    const STATUS_DESCRIPTION_FAILURE = "Unsuccessfull Request";
 
     /**
      * @var string
@@ -50,7 +50,7 @@ class UnsubscribeCustomer extends AbstractPlugin
 
     public function getPluginAccessor() :string
     {
-        return "unsubcribeCustomerFromPlan()";
+        return "unsubcribeCustomerFromPlan";
     }
 
     /**
@@ -65,9 +65,7 @@ class UnsubscribeCustomer extends AbstractPlugin
         $link = $this->baseUrl . self::UN_SUBSCRIBE_LINK;
 
         $response = $this->adapter->getHttpClient()
-            ->post($link, $data)
-            ->getBody();
-
+            ->post($link, $data);
 
         if ($response->getStatusCode() !== 200) {
             throw new InvalidHttpResponseException(
@@ -75,7 +73,7 @@ class UnsubscribeCustomer extends AbstractPlugin
             );
         }
 
-        $response = json_decode($response, true);
+        $response = json_decode($response->getBody(), true);
 
         $validated = false;
 
