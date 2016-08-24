@@ -8,7 +8,7 @@ use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
 
-class FindCustomerTest extends \PHPUnit_Framework_TestCase
+class GetCustomerTest extends \PHPUnit_Framework_TestCase
 {
 
     use Mockable;
@@ -39,7 +39,7 @@ class FindCustomerTest extends \PHPUnit_Framework_TestCase
 
         $paystack = new PaystackAdapter($httpClient);
 
-        $returnedData = $paystack->findCustomer(123);
+        $returnedData = $paystack->getCustomer(123);
 
         $this->assertEquals($data, $returnedData);
 
