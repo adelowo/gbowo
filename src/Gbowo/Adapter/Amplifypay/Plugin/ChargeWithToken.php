@@ -65,7 +65,7 @@ class ChargeWithToken extends AbstractChargeWithToken implements Bill
             );
         }
 
-        $response = json_decode($response, true);
+        $response = json_decode($response->getBody(), true);
 
         $validated = false;
 
@@ -89,7 +89,6 @@ class ChargeWithToken extends AbstractChargeWithToken implements Bill
         $link = $this->baseUrl . self::CHARGE_RETURNING_USER;
 
         return $this->adapter->getHttpClient()
-            ->post($link, array_merge($this->apiKeys, $data))
-            ->getBody();
+            ->post($link, array_merge($this->apiKeys, $data));
     }
 }
