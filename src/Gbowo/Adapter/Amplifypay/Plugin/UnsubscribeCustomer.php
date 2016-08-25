@@ -65,7 +65,7 @@ class UnsubscribeCustomer extends AbstractPlugin
         $link = $this->baseUrl . self::UN_SUBSCRIBE_LINK;
 
         $response = $this->adapter->getHttpClient()
-            ->post($link, $data);
+            ->post($link, array_merge($this->apiKeys, $data));
 
         if ($response->getStatusCode() !== 200) {
             throw new InvalidHttpResponseException(
