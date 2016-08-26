@@ -18,7 +18,7 @@ class GetAllCustomers extends AbstractPlugin
     /**
      * @var string
      */
-    const CUSTOMERS_LINK = "customers";
+    const CUSTOMERS_LINK = "/customers";
 
     /**
      * The base url for the api
@@ -41,7 +41,7 @@ class GetAllCustomers extends AbstractPlugin
     {
         $response = json_decode(
             $this->adapter->getHttpClient()
-                ->get(self::CUSTOMERS_LINK)
+                ->get($this->baseUrl.self::CUSTOMERS_LINK)
                 ->getBody(),
             true
         );

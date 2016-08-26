@@ -47,7 +47,7 @@ class GetPaymentData extends AbstractGetPaymentData
 
         $validated = false;
 
-        if (strcmp($result['message'] , self::VERIFIED_TRANSACTION) === 0) {
+        if (strcmp($result['message'], self::VERIFIED_TRANSACTION) === 0) {
             $validated = true;
         }
 
