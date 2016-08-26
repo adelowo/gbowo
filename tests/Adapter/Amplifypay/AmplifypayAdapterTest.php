@@ -65,7 +65,7 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
             "customerEmail" => "xx@adelowla.com",
             "customerName" => "Lanre",
             "Amount" => 4000.00,
-            "reference" => \Gbowo\genTransRef(),
+            "reference" => \Gbowo\generate_trans_ref(),
             "redirectUrl" => "https://domainName.com/getdata",
             "paymentDescription" => "Testing The API"
         ];
@@ -105,7 +105,7 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
             "customerEmail" => "xx@adelowla.com",
             "customerName" => "Lanre",
             "Amount" => 4000.00,
-            "reference" => \Gbowo\genTransRef(),
+            "reference" => \Gbowo\generate_trans_ref(),
             "redirectUrl" => "https://domainName.com/getdata",
             "paymentDescription" => "Testing The API"
         ];
@@ -153,7 +153,7 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
             "customerEmail" => "xx@adelowla.com",
             "customerName" => "Lanre",
             "Amount" => 4000.00,
-            "reference" => \Gbowo\genTransRef(),
+            "reference" => \Gbowo\generate_trans_ref(),
             "redirectUrl" => "https://domainName.com/getdata",
             "paymentDescription" => "Testing The API"
         ];
@@ -171,4 +171,3 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
 }
-

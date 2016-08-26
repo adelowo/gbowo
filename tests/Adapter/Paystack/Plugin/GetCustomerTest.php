@@ -6,7 +6,7 @@ use Mockery;
 use DateTime;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
-use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
+use Gbowo\Adapter\Paystack\Plugin\GetCustomer;
 
 class GetCustomerTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,6 +38,8 @@ class GetCustomerTest extends \PHPUnit_Framework_TestCase
             ->andReturn($mockedInterface);
 
         $paystack = new PaystackAdapter($httpClient);
+
+        $paystack->addPlugin(new GetCustomer(PaystackAdapter::API_LINK));
 
         $returnedData = $paystack->getCustomer(123);
 
