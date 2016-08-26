@@ -6,7 +6,9 @@ use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
 
 /**
- *
+ * @author Lanre Adelowo <me@adelowolanre.com>
+ * Class GetAllTransactions
+ * @package Gbowo\Adapter\Paystack\Plugin
  */
 class GetAllTransactions extends AbstractPlugin
 {
