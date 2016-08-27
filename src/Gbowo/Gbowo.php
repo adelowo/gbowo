@@ -2,7 +2,7 @@
 
 namespace Gbowo;
 
-use Gbowo\Contract\Adapter\Adapter;
+use Gbowo\Contract\Adapter\AdapterInterface;
 
 /**
  * @author Lanre Adelowo <me@adelowolanre.com>
@@ -13,19 +13,19 @@ class Gbowo
 {
 
     /**
-     * @var \Gbowo\Contract\Adapter\Adapter
+     * @var \Gbowo\Contract\Adapter\AdapterInterface
      */
     protected $paymentAdapter;
 
-    public function __construct(Adapter $adapter)
+    public function __construct(AdapterInterface $adapter)
     {
         $this->paymentAdapter = $adapter;
     }
 
     /**
-     * @return \Gbowo\Contract\Adapter\Adapter
+     * @return \Gbowo\Contract\Adapter\AdapterInterface
      */
-    public function getPaymentAdapter(): Adapter
+    public function getPaymentAdapter(): AdapterInterface
     {
         return $this->paymentAdapter;
     }

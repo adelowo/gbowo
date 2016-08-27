@@ -2,27 +2,27 @@
 
 namespace Gbowo\Plugin;
 
-use Gbowo\Contract\Plugin\Plugin;
-use Gbowo\Contract\Adapter\Adapter;
+use Gbowo\Contract\Plugin\PluginInterface;
+use Gbowo\Contract\Adapter\AdapterInterface;
 
 /**
  * @author Lanre Adelowo <me@adelowolanre.com>
  * Class AbstractPlugin
  * @package Gbowo\Plugin
  */
-abstract class AbstractPlugin implements Plugin
+abstract class AbstractPlugin implements PluginInterface
 {
 
     /**
-     * @var Adapter
+     * @var AdapterInterface
      */
     protected $adapter;
 
     /**
-     * @param \Gbowo\Contract\Adapter\Adapter $adapter
+     * @param \Gbowo\Contract\Adapter\AdapterInterface $adapter
      * @return $this
      */
-    public function setAdapter(Adapter $adapter)
+    public function setAdapter(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
 

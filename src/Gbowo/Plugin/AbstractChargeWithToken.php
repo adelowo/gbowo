@@ -2,7 +2,7 @@
 
 namespace Gbowo\Plugin;
 
-use Gbowo\Contract\Plugin\Plugin;
+use Gbowo\Contract\Plugin\PluginInterface;
 
 /**
  * Abstract plugin for adapters that allows "re-charging" a customer without them providing their card details all the
@@ -11,7 +11,7 @@ use Gbowo\Contract\Plugin\Plugin;
  * Class AbstractChargeWithToken
  * @package Gbowo\Plugin
  */
-abstract class AbstractChargeWithToken extends AbstractPlugin implements Plugin
+abstract class AbstractChargeWithToken extends AbstractPlugin implements PluginInterface
 {
 
 

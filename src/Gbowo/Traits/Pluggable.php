@@ -3,8 +3,8 @@
 namespace Gbowo\Traits;
 
 use LogicException;
-use Gbowo\Contract\Plugin\Plugin;
-use Gbowo\Contract\Adapter\Adapter;
+use Gbowo\Contract\Plugin\PluginInterface;
+use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\Exception\PluginNotFoundException;
 
 /**
@@ -17,16 +17,16 @@ trait Pluggable
 {
 
     /**
-     * @var Plugin[]
+     * @var PluginInterface[]
      */
     protected $plugins = [];
 
     /**
      * Add a plugin
-     * @param \Gbowo\Contract\Plugin\Plugin $plugin
+     * @param \Gbowo\Contract\Plugin\PluginInterface $plugin
      * @return $this
      */
-    public function addPlugin(Plugin $plugin)
+    public function addPlugin(PluginInterface $plugin)
     {
         $this->plugins[$plugin->getPluginAccessor()] = $plugin;
 
@@ -45,12 +45,12 @@ trait Pluggable
     }
 
     /**
-     * @param string                          $accessor The plugin accessor
-     * @param array                           $argument Args to pass to the plugin's `handle` method
-     * @param \Gbowo\Contract\Adapter\Adapter $adapter The adapter in use.
+     * @param string                                   $accessor The plugin accessor
+     * @param array                                    $argument Args to pass to the plugin's `handle` method
+     * @param \Gbowo\Contract\Adapter\AdapterInterface $adapter The adapter in use.
      * @return mixed
      */
-    public function callPlugin(string $accessor, array $argument, Adapter $adapter)
+    public function callPlugin(string $accessor, array $argument, AdapterInterface $adapter)
     {
         $plugin = $this->getPlugin($accessor);
         $plugin->setAdapter($adapter);
@@ -60,7 +60,7 @@ trait Pluggable
 
     /**
      * @param string $accessor
-     * @return \Gbowo\Contract\Plugin\Plugin
+     * @return \Gbowo\Contract\Plugin\PluginInterface
      * @throws \Gbowo\Exception\PluginNotFoundException If the plugin cannot be found
      * @throws LogicException if the plugin does not have an method called `handle`
      */

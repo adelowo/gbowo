@@ -2,18 +2,18 @@
 
 namespace Gbowo\Contract\Plugin;
 
-use Gbowo\Contract\Adapter\Adapter;
+use Gbowo\Contract\Adapter\AdapterInterface;
 
 /**
  * @author Lanre Adelowo <me@adelowolanre.com>
  * Interface Plugin
  * @package Gbowo\Contract\Plugin
  */
-interface Plugin
+interface PluginInterface
 {
 
     public function getPluginAccessor() : string;
 
 
-    public function setAdapter(Adapter $adapter);
+    public function setAdapter(AdapterInterface $adapter);
 }

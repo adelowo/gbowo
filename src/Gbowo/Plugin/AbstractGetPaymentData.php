@@ -2,7 +2,7 @@
 
 namespace Gbowo\Plugin;
 
-use Gbowo\Contract\Plugin\Plugin;
+use Gbowo\Contract\Plugin\PluginInterface;
 
 /**
  * Abstract plugin to allow a consistent api <method> `getPaymentData` for all adapters that provide this feature
@@ -10,7 +10,7 @@ use Gbowo\Contract\Plugin\Plugin;
  * Class AbstractGetPaymentData
  * @package Gbowo\Plugin
  */
-abstract class AbstractGetPaymentData extends AbstractPlugin implements Plugin
+abstract class AbstractGetPaymentData extends AbstractPlugin implements PluginInterface
 {
 
     final public function getPluginAccessor() : string

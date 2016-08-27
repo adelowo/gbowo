@@ -5,9 +5,9 @@ namespace Gbowo\Adapter\Amplifypay;
 use GuzzleHttp\Client;
 use function Gbowo\env;
 use Gbowo\Traits\Pluggable;
-use Gbowo\Contract\Adapter\Adapter;
 use function GuzzleHttp\json_decode;
 use Psr\Http\Message\ResponseInterface;
+use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\Amplifypay\Plugin\GetPaymentData;
@@ -22,7 +22,7 @@ use Gbowo\Adapter\Amplifypay\Plugin\UnsubscribeCustomer;
  * Class AmplifypayAdapter
  * @package Gbowo\Adapter\Amplifypay
  */
-class AmplifypayAdapter implements Adapter
+class AmplifypayAdapter implements AdapterInterface
 {
 
     use Pluggable, KeyVerifier;

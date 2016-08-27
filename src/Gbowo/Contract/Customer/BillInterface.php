@@ -9,7 +9,7 @@ namespace Gbowo\Contract\Customer;
  * Interface Bill
  * @package Gbowo\Contract\Customer
  */
-interface Bill
+interface BillInterface
 {
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Gbowo\Adapter\Amplifypay\Plugin;
 
-use Gbowo\Contract\Customer\Bill;
+use Gbowo\Contract\Customer\BillInterface;
 use function GuzzleHttp\json_decode;
 use Gbowo\Plugin\AbstractChargeWithToken;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
@@ -16,7 +16,7 @@ use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
  * Class ChargeWithToken
  * @package Gbowo\Adapter\Amplifypay\Plugin
  */
-class ChargeWithToken extends AbstractChargeWithToken implements Bill
+class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
 {
 
     use KeyVerifier;

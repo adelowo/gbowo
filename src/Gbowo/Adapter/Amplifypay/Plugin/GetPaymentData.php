@@ -14,7 +14,6 @@ class GetPaymentData extends AbstractGetPaymentData
 
     const APPROVED_TRANSACTION_STATUS = "APPROVED";
 
-    //@todo update this,, there isn't a failure message in the docs though
     const UNAPPROVED_TRANSACTION_STATUS = "UNAPPROVED";
 
     const TRANSACTION_VERIFICATION = '/verify';
