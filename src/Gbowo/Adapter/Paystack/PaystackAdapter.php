@@ -5,7 +5,7 @@ namespace Gbowo\Adapter\Paystack;
 use GuzzleHttp\Client;
 use function Gbowo\env;
 use Gbowo\Traits\Pluggable;
-use Gbowo\Contract\Adapter\Adapter;
+use Gbowo\Contract\Adapter\AdapterInterface;
 use function GuzzleHttp\json_decode;
 use Psr\Http\Message\ResponseInterface;
 use Gbowo\Adapter\Paystack\Traits\Payable;
@@ -15,12 +15,12 @@ use Gbowo\Adapter\Paystack\Plugin\ChargeWithToken;
 /**
  * @method findCustomer(int $customerId)
  * @method getPaymentData(string $transactionReference)
- * @method chargeWithToken(string $token)
+ * @method chargeWithToken(array $data)
  * @author Lanre Adelowo <me@adelowolanre.com>
  * Class PaystackAdapter
  * @package Gbowo\Adapter\Paystack
  */
-class PaystackAdapter implements Adapter
+class PaystackAdapter implements AdapterInterface
 {
 
     use Pluggable, Payable;
