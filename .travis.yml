@@ -6,6 +6,7 @@ php :
 before_script:
   - composer selfupdate
   - composer install
+  - composer dump-autoload-o
 
 script:
     - phpunit --coverage-text --coverage-clover=coverage.clover
