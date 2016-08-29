@@ -8,6 +8,8 @@
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/bade68de-1511-4d67-85dc-09f6e23c5ea0.svg?style=flat-square)](https://insight.sensiolabs.com/projects/09ff34ee-feb3-49c0-acbc-52781179deb9)
 [![Total Downloads](https://img.shields.io/packagist/dt/adelowo/gbowo.svg?style=flat-square)](https://packagist.org/packages/adelowo/gbowo)
 
+> WIP
+
 ### Installation
 
 Install Gbowo via one of the following methods :
