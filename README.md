@@ -200,7 +200,12 @@ public function handle(bool $throw = true)
 }
 
 ```
+Remember to register the plugin like below :
 
+```php
+$adapter->addPlugin(new Vendor/AdapterName/Plugin/ApiPinger(https://api.somesite.com));
+
+```
 Not all plugins would make it to the core eventually and not even all plugins in the core would be "added" on instantiation. For instance, the `GetAllCustomers` plugin isn't added to the _PaystackAdapter_ internally. To use the plugin, you'd have to add it yourself.
 
 ```php
