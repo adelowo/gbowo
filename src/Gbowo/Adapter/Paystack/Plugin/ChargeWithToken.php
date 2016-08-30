@@ -2,11 +2,12 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
-use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 use InvalidArgumentException;
 use Gbowo\Contract\Customer\BillInterface;
 use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
+use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
 /**
  * Charge a customer with the token returned from the first transaction initiated with the Paystack
@@ -55,9 +56,11 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
         return $res['data'];
     }
 
-    public function chargeByToken($token)
+    public function chargeByToken($data)
     {
         return $this->adapter->getHttpClient()
-            ->post($this->baseUrl . self::TOKEN_CHARGE_RELATIVE_LINK);
+            ->post($this->baseUrl . self::TOKEN_CHARGE_RELATIVE_LINK, [
+                'body' => json_encode($data)
+            ]);
     }
 }
