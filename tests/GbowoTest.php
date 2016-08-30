@@ -4,6 +4,7 @@ namespace Gbowo\Tests;
 
 use Gbowo\Gbowo;
 use LogicException;
+use Gbowo\Plugin\AbstractPlugin;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Tests\Fixtures\UnhandleablePlugin;
 use Gbowo\Exception\PluginNotFoundException;
@@ -94,4 +95,40 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @see Gbowo::__call
+     * Initially would allow only a single param to be passed in
+     */
+    public function testPluginExpectsMultipleArgs()
+    {
+
+        $stub = ["dummy", ["token" => 111]];
+
+        $dummy = new class extends AbstractPlugin
+        {
+
+            protected $baseUrl;
+
+            public function getPluginAccessor() : string
+            {
+                return 'dummy';
+            }
+
+            public function handle(string $one, array $two)
+            {
+                return func_get_args();
+            }
+        };
+
+        $paystack = new PaystackAdapter();
+
+        $paystack->addPlugin($dummy);
+
+        $gbowo = new Gbowo($paystack);
+
+        $response = $gbowo->dummy($stub[0], $stub[1]);
+
+        $this->assertEquals($stub, $response);
+
+    }
 }
