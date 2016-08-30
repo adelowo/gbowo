@@ -2,9 +2,10 @@
 
 namespace Gbowo\Adapter\Amplifypay\Plugin;
 
-use Gbowo\Contract\Customer\BillInterface;
 use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
+use Gbowo\Contract\Customer\BillInterface;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
@@ -89,6 +90,8 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
         $link = $this->baseUrl . self::CHARGE_RETURNING_USER;
 
         return $this->adapter->getHttpClient()
-            ->post($link, array_merge($this->apiKeys, $data));
+            ->post($link, [
+                'body' => json_encode(array_merge($this->apiKeys, $data))
+            ]);
     }
 }

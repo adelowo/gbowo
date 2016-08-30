@@ -4,6 +4,7 @@ namespace Gbowo\Adapter\Amplifypay\Plugin;
 
 use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
@@ -65,7 +66,9 @@ class UnsubscribeCustomer extends AbstractPlugin
         $link = $this->baseUrl . self::UN_SUBSCRIBE_LINK;
 
         $response = $this->adapter->getHttpClient()
-            ->post($link, array_merge($this->apiKeys, $data));
+            ->post($link, [
+                'body' => json_encode(array_merge($this->apiKeys, $data))
+            ]);
 
         if ($response->getStatusCode() !== 200) {
             throw new InvalidHttpResponseException(
