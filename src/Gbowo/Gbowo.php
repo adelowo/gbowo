@@ -48,6 +48,6 @@ class Gbowo
      */
     public function __call(string $method, array $arg)
     {
-        return $this->paymentAdapter->{$method}($arg[0]);
+        return call_user_func_array([$this->paymentAdapter, $method], $arg);
     }
 }
