@@ -65,7 +65,7 @@ While both payment gateway offer similar features, there are a few subtle differ
 
 _Gbowo_ requires some value to be present in the environment i.e `$_ENV`. For paystack, this is `$_ENV['PAYSTACK_SECRET_KEY']` while the amplifypay adapter requires two values : your merchant id and an api key. This should be present in the following format : `$_ENV['AMPLIFYPAY_MERCHANT_ID']` and `$_ENV['AMPLIFYPAY_API_KEY']`.
 
-> You are strongly advised to keep your keys / tokens out of your code and instead load them into `$_ENV` by some other means. We don't enforce this but it is a best practice and even made it to the [12 Factor App Guideline](http://updatethis).
+> You are strongly advised to keep your keys / tokens out of your code and instead load them into `$_ENV` by some other means. We don't enforce this but it is a best practice and even made it to the [12 Factor App Guideline](https://12factor.net/config).
 A library that would help with this is `vlucas/phpdotenv`. All it needs is a `.env` file and you are golden. Remember not to commit the `.env` else it still isn't out of your "code".
 A sample `.env.example` has been provided in the `resources` directory. You can copy and rename that to `.env` in your root dir.
 
@@ -110,13 +110,13 @@ Paystack :
 
 * `getCustomer(int $id)`
 * `getAllCustomers()`
-* `chargeWithToken($token)`
+* `chargeWithToken(array $userToken)` // a token plus email address (or custom stuff)
 * `getPaymentData(string $transRef)`
 
 Amplifypay :
 
 * `unsubcribeCustomerFromPlan(array $data)`
-* `chargeWithToken(array $token)` //a token in amplifypay is a key pair of values.
+* `chargeWithToken(array $userToken)` //a token in amplifypay is a key pair of values.
 * `getPaymentData(string $transRef)`
 
 
