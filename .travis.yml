@@ -9,7 +9,7 @@ before_script:
   - composer dump-autoload -o
 
 script:
-    - phpunit --coverage-text --coverage-clover=coverage.clover
+    - phpunit --report-useless-tests --strict-coverage --coverage-text --coverage-clover=coverage.clover
 
 after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
