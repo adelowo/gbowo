@@ -50,9 +50,12 @@ class UnsubscribeCustomerTest extends \PHPUnit_Framework_TestCase
 
         $res = $amplifyPay->unsubcribeCustomerFromPlan($data);
 
-        $this->assertEquals($response['StatusDesc'] , $res['StatusDesc']);
+        $this->assertEquals($response['StatusDesc'], $res['StatusDesc']);
     }
 
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
     public function testAnInvalidHttpStatusCodeIsReceived()
     {
 
@@ -87,14 +90,13 @@ class UnsubscribeCustomerTest extends \PHPUnit_Framework_TestCase
             "planId" => "200",
         ];
 
-        try {
-            $amplifyPay->unsubcribeCustomerFromPlan($data);
-        } catch (InvalidHttpResponseException $e) {
-
-        }
+        $amplifyPay->unsubcribeCustomerFromPlan($data);
 
     }
 
+    /**
+     * @expectedException \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
+     */
     public function testTransactionFailsDueToWrongStatusDescription()
     {
 
@@ -128,14 +130,6 @@ class UnsubscribeCustomerTest extends \PHPUnit_Framework_TestCase
             "planId" => "200",
         ];
 
-        try {
-            $amplifyPay->unsubcribeCustomerFromPlan($data);
-        } catch (TransactionVerficationFailedException $e) {
-
-            $this->assertEquals(UnsubscribeCustomer::STATUS_DESCRIPTION_FAILURE , $e->getMessage());
-
-        }
-
-
+        $amplifyPay->unsubcribeCustomerFromPlan($data);
     }
 }

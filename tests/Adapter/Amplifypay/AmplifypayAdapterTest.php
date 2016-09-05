@@ -76,6 +76,9 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
     public function testApiReturnsInvalidHttpStatusCodeAndAnExceptionIsThrown()
     {
 
@@ -110,20 +113,13 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
             "paymentDescription" => "Testing The API"
         ];
 
-        try {
-
-            $response = $this->amplifyPay->charge($data);
-
-        } catch (InvalidHttpResponseException $e) {
-
-            $this->assertStringEndsWith(
-                (string)$this->mockedResponseInterface->getStatusCode(),
-                $e->getMessage()
-            );
-        }
+        $this->amplifyPay->charge($data);
 
     }
 
+    /**
+     * @expectedException \Gbowo\Adapter\AmplifyPay\Exception\KeyMismatchException
+     */
     public function testRequestAndResponseApiKeysMustBeTheSame()
     {
 
@@ -158,15 +154,7 @@ class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
             "paymentDescription" => "Testing The API"
         ];
 
-        try {
-
-            $response = $this->amplifyPay->charge($data);
-
-        } catch (KeyMismatchException $e) {
-
-            $this->assertEquals( $e->getMessage() , "Api keys don't match");
-
-        }
+        $this->amplifyPay->charge($data);
 
     }
 

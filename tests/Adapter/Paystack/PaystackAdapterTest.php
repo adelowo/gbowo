@@ -40,6 +40,9 @@ class PaystackAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
     public function testReturnsInvalidHttpResponse()
     {
 
@@ -59,14 +62,8 @@ class PaystackAdapterTest extends \PHPUnit_Framework_TestCase
 
         $paystack = new PaystackAdapter($httpClient);
 
-        try {
+        $paystack->charge(['amount' => 6000, 'blah' => 'blah']);
 
-            $response = $paystack->charge(['amount' => 6000, 'blah' => 'blah']);
-
-        } catch (InvalidHttpResponseException $e) {
-
-            $this->assertStringEndsWith("201",$e->getMessage());
-        }
 
     }
 

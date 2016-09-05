@@ -7,7 +7,6 @@ use LogicException;
 use Gbowo\Plugin\AbstractPlugin;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Tests\Fixtures\UnhandleablePlugin;
-use Gbowo\Exception\PluginNotFoundException;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
 
 class GbowoTest extends \PHPUnit_Framework_TestCase
@@ -15,6 +14,10 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
 
     use Mockable;
 
+    /**
+     * @expectedException \Gbowo\Exception\PluginNotFoundException
+     * @expectedExceptionMessage Plugin with accessor
+     */
     public function testPluginNotFound()
     {
 
@@ -24,14 +27,9 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
 
         $gbowo = new Gbowo($paystack);
 
-        try {
 
-            $gbowo->unknownPlugin(10);
+        $gbowo->unknownPlugin(10);
 
-        } catch (PluginNotFoundException $e) {
-
-            $this->assertEquals("Plugin with accessor, unknownPlugin not found", $e->getMessage());
-        }
     }
 
     /**

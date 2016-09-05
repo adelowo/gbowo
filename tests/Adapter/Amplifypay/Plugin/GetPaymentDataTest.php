@@ -77,6 +77,9 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
     public function testInvalidHttpResponseIsReturned()
     {
 
@@ -109,16 +112,14 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
             ->once()
             ->andReturn($this->mockedResponseInterface);
 
-        try {
+        $returnedData = $this->amplifyPay->getPaymentData('s');
 
-            $returnedData = $this->amplifyPay->getPaymentData('s');
-
-        } catch (InvalidHttpResponseException $e) {
-
-        }
 
     }
 
+    /**
+     * @expectedException \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
+     */
     public function testTransactionFailsBecauseRequestWasNotAccepted()
     {
         $res = [
@@ -150,13 +151,7 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
             ->once()
             ->andReturn($this->mockedResponseInterface);
 
-        try {
-
-            $this->amplifyPay->getPaymentData('ssssss');
-
-        } catch (TransactionVerficationFailedException $e) {
-            $this->assertEquals(GetPaymentData::UNAPPROVED_TRANSACTION_STATUS, $e->getMessage());
-        }
+        $this->amplifyPay->getPaymentData('ssssss');
 
     }
 

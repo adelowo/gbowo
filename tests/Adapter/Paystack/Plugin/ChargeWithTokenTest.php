@@ -74,6 +74,9 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
         $paystack->chargeWithToken(["email" => "me@adelowolanre.com", "bool" => true]);
     }
 
+    /**
+     * @expectedException \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
+     */
     public function testInvalidTransactionMessageIsReturned()
     {
         $mockedResponse = $this->getMockedResponseInterface();
@@ -102,10 +105,6 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
         $paystack = (new PaystackAdapter($httpClient))
             ->addPlugin(new ChargeWithToken(PaystackAdapter::API_LINK));
 
-        try {
-            $paystack->chargeWithToken(["token" => "dddd", "email" => "me@adelowolanre.com"]);
-        } catch (TransactionVerficationFailedException $e) {
-
-        }
+        $paystack->chargeWithToken(["token" => "dddd", "email" => "me@adelowolanre.com"]);
     }
 }

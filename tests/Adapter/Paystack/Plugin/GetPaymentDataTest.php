@@ -45,6 +45,9 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data, $returnedData);
     }
 
+    /**
+     * @expectedException \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
+     */
     public function testGetPaymentIsCalledButRaisesAnException()
     {
         $mockedInterface = $this->getMockedResponseInterface();
@@ -71,13 +74,8 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
 
         $paystack = new PaystackAdapter($httpClient);
 
-        try {
+        $paystack->getPaymentData('token');
 
-            $returnedData = $paystack->getPaymentData('token');
-
-        } catch (TransactionVerficationFailedException $e) {
-            $this->assertEquals(GetPaymentData::INVALID_TRANSACTION, $e->getMessage());
-        }
     }
 
 }

@@ -41,7 +41,7 @@ class GetAllCustomersTest extends \PHPUnit_Framework_TestCase
 
         $returnedData = $paystack->getAllCustomers();
 
-       $this->assertEquals($data['data'], $returnedData);
+        $this->assertEquals($data['data'], $returnedData);
 
     }
 
