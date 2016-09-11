@@ -44,7 +44,6 @@ class GetPaymentData extends AbstractGetPaymentData
      */
     public function handle(string $reference)
     {
-
         $link = $this->baseUrl .
             self::TRANSACTION_VERIFICATION .
             "?transactionRef={$reference}&merchantId={$this->apiKeys['merchantId']}";

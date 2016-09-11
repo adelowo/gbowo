@@ -60,22 +60,6 @@ class AmplifypayAdapter implements AdapterInterface
         $this->registerPlugins();
     }
 
-    /**
-     * @codeCoverageIgnore
-     * @return \GuzzleHttp\Client
-     */
-    protected function setHttpClient() : Client
-    {
-        return new Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Cache-Control' => 'no-cache'
-            ]
-        ]);
-    }
-
     protected function registerPlugins()
     {
         $this->addPlugin(new GetPaymentData($this->baseUrl, $this->apiKeys))
@@ -119,5 +103,21 @@ class AmplifypayAdapter implements AdapterInterface
     public function getHttpClient(): Client
     {
         return $this->httpClient;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * @return \GuzzleHttp\Client
+     */
+    protected function setHttpClient() : Client
+    {
+        return new Client([
+            'base_uri' => $this->baseUrl,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Cache-Control' => 'no-cache'
+            ]
+        ]);
     }
 }
