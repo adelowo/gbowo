@@ -38,15 +38,13 @@ require_once 'vendor/autoload.php';
 
 $adapter = new \Gbowo\Adapter\Paystack\PaystackAdapter();
 
-$gbowo = new Gbowo($adapter);
-
-$response = $gbowo->charge(); //depending on the adapter in use, the response would vary.
+$response = $adapter->charge(); 
 
 ```
 
 For the paystack and amplifypay adapters, the response received would be a string, which denotes an _authorization__url_. You are to make a redirect to the url to complete the transaction.
 
-> Other adapters implementation may do something much different like redirect internally ( from the adapter) but this isn't done for good reasons. This is because different systems may have different ways of performing redirects via _Request_ or _Response_ objects, or whatever have they. So as long as you can get the returned url, you can use the _Adapter_ in your framework.
+> Other adapters implementation may do something much different like redirect internally ( from the adapter) but this isn't done for good reasons. This is because different systems may have different ways of performing redirects via _Request_ or _Response_ objects, or whatever have they. So as long as you can get the returned url, you can use the _Adapter_ in your framework or whatever have you.
 
 A basic example would be something like
 
@@ -65,7 +63,7 @@ While both payment gateway offer similar features, there are a few subtle differ
 
 _Gbowo_ requires some value to be present in the environment i.e `$_ENV`. For paystack, this is `$_ENV['PAYSTACK_SECRET_KEY']` while the amplifypay adapter requires two values : your merchant id and an api key. This should be present in the following format : `$_ENV['AMPLIFYPAY_MERCHANT_ID']` and `$_ENV['AMPLIFYPAY_API_KEY']`.
 
-> You are strongly advised to keep your keys / tokens out of your code and instead load them into `$_ENV` by some other means. We don't enforce this but it is a best practice and even made it to the [12 Factor App Guideline](https://12factor.net/config).
+> You are strongly advised to keep your keys and/or tokens out of your code and instead load them into `$_ENV` by some other means. We don't enforce this but it is a best practice, [12 Factor App Guideline](https://12factor.net/config).
 A library that would help with this is `vlucas/phpdotenv`. All it needs is a `.env` file and you are golden. Remember not to commit the `.env` else it still isn't out of your "code".
 A sample `.env.example` has been provided in the `resources` directory. You can copy and rename that to `.env` in your root dir.
 
@@ -76,6 +74,7 @@ $paystack = new \Gbowo\Adapter\Paystack\PaystackAdapter();
 $amplifyPay = new \Gbowo\Adapter\Amplifypay\AmplfiypayAdapter()
 
 ```
+
 A GuzzleHttp `Client` instance would be created automatically and values gotten from the `$_ENV` would be used to set the appropriate authorization headers where applicable.
 
 You can prevent this "auto-wiring" by providing an instance of Guzzlehttp Client in the constructor.
@@ -90,9 +89,9 @@ $amplifyPay = new \Gbowo\Adapter\Amplifypay\AmplfiypayAdapter($client)
 
 The payment flow for both adapters is pretty much the same. User initiates first time / one time transaction and is redirected to a secure page where payment details are to be inputted. After this (a successful payment request), the gateway would issue a redirect to a url you have supplied them as a callback. In this url, you should fetch the details of a user (who is now a customer) such as an *authorization_code* , *transaction_reference* among others. This is for recurrent transactions and should be persisted to a storage mechanism.
 
-Initiating the transaction should be performed by calling the `charge` method on the adapter. And making a redirect to the response as described earlier.
+Initiating the transaction should be performed by calling the `charge` method on the adapter. And making a redirect where applicable to the response as described earlier.
 
-To fetch the data from the url callback the gateway, you have to call the `getPaymentData` method on the adapter. A response containing all data about the customer.
+To fetch the data from the url callback you have registered on your chosen gateway, you have to call the `getPaymentData` method on the adapter. It's response would contain some data about the customer.
 
 ```php
 
@@ -106,14 +105,14 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 
 ### Adapters Methods.
 
-Paystack :
+[Paystack](https://paystack.co) :
 
 * `getCustomer(int $id)`
 * `getAllCustomers()`
 * `chargeWithToken(array $userToken)` // a token plus email address (or custom stuff)
 * `getPaymentData(string $transRef)`
 
-Amplifypay :
+[Amplifypay](https://amplifypay.com) :
 
 * `unsubcribeCustomerFromPlan(array $data)`
 * `chargeWithToken(array $userToken)` //a token in amplifypay is a key pair of values.
@@ -124,14 +123,16 @@ Amplifypay :
 
 Different gateways implement various features and there's no way we can support all of them without losing our sanity.
 
-Supporting all features would lead to a bloat (an interface, class bloat). Take for instance : create _InterfaceX_ to support feature X for _AdapterE_ while _AdapterE_ still makes use of features (and therefore interfaces) for _AdapterA_,_AdapterQ_ and so on. Now imagine this sceanrio plays out for 4 -5 adapters. Apart from the bloat, we cannot create a diagram of which interfaces are being used and it'd lead to a situation where we cannot remove a certain class or interface because we do not know who (what adapter) depends on them.
+Supporting all features would lead to a bloat (an interface, class bloat). Take for instance : create `InterfaceX` to support feature X for `AdapterE` while `AdapterE` still makes use of features (and therefore interfaces) for `AdapterA`,`AdapterQ` and so on. Now imagine this scenario plays out for 4 -5 adapters.
+ 
+ Apart from the bloat, we cannot create a (visual) diagram of which interfaces are being used and it'd lead to a situation where we cannot remove a certain class or interface because we do not know who (what adapter) depends on them.
 
-To prevent this, _Gbowo_ implements a plugin architecture that eases extension or "adding new methods/behaviours" to an existing adapter without sub-classing or editing core code. To achieve this, there is a `Pluggable` trait that contains the logic and **MUST** be imported by an adapter implementation.
+To prevent this, _Gbowo_ implements a plugin architecture that eases extension or "adding new methods/behaviours" to an existing adapter without inheritance or touching core code. To achieve this, there is a `Pluggable` trait that contains the logic and **MUST** be imported by an adapter implementation.
 
 A look at the [paystack adapter](src/Gbowo/Adapter/Paystack/PaystackAdapter.php) and [amplifypay](src/Gbowo/Adapter/Amplifypay/AmplifypayAdapter.php) would reveal that they do not have the methods described above in their public api. In fact they expose only 3 methods :
-* `__construct(Client $client = null)` //if it counts as one
+* `__construct(Client $client = null)` // if it counts as one
 * `getHttpClient()`
-* `charge(array $data = null)` //This is gotten from the _Adapter_ Interface implemented.
+* `charge(array $data = null)` //This is gotten from the `AdapterInterface` implemented.
 
 But a look at their `registerPlugins` method tells how the methods described in the `Adapters method` section above come about.
 
@@ -156,7 +157,7 @@ class ApiPinger implements Plugin
     /**
      * You can also leave this method out but you must extend the `AbstractPlugin` class. Doing so, means you'd have to get rid of the plugin interface here as the abstract plugin already does that.
      */
-    public function setAdapter(Adapter $adapter)
+    public function setAdapter(AdapterInterface $adapter)
     {
         $this->adapter = $adapter ; //useful for helpers like getting the already configured Client object
         return $this;
@@ -172,6 +173,7 @@ In addition to this, a plugin must be defined as handleable. As of now, our Ping
  To fix this and make our plugin do some real work, an `handle` method **MUST** be defined with it own's arguments.
 
 > We do not enforce the handle method via an interface as some plugins might need just one argument, two args, or even 4 ( 2 `string`s, one `array`, one `int`).
+But whatever the args required, be sure all are appropriately passed.
 
 ```php
 
@@ -179,38 +181,98 @@ In addition to this, a plugin must be defined as handleable. As of now, our Ping
 
 /**
  * Ping the gateway Api
- * @param  bool $throw Should an exception be thrown if the api is down.
- * @return int 1 - if the api is up and running.
-               0 - if the api is down and $throw is set to false.
+ * @param  bool $throw Should an exception be thrown if the api is down ?.
+ * @return bool true - if the api is up and running.
+               false - if the api is down and $throw is set to false.
  * @throws \Exception if the api is down and $throw is set to false.
  */
 public function handle(bool $throw = true)
 {
     $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
 
-    if ($response->getStatusCode() === 200) {
-        return 1;
+    if (200 === $response->getStatusCode()) {
+        return true;
     }
 
     if ($throw) {
         throw new \Exception("API is dead", $response->getStatusCode());
     }
 
-    return 0;
+    return false;
 }
 
 ```
 Remember to register the plugin like below :
 
 ```php
-$adapter->addPlugin(new Vendor/AdapterName/Plugin/ApiPinger(https://api.somesite.com));
+$adapter->addPlugin(new Vendor/AdapterName/Plugin/ApiPinger(PaystackAdapter::API_LINK));
 
 ```
-Not all plugins would make it to the core eventually and not even all plugins in the core would be "added" on instantiation. For instance, the `GetAllCustomers` plugin isn't added to the _PaystackAdapter_ internally. To use the plugin, you'd have to add it yourself.
+Not all plugins would make it to the core eventually and not even all plugins in the core would be "added" on instantiation. For instance, the `GetAllCustomers` plugin isn't added to the `PaystackAdapter` internally. To use the plugin, you'd have to add it yourself.
 
 ```php
 
 $adapter->addPlugin(new GetAllCustomers(PaystackAdapter::API_LINK))
+
+```
+
+### Laravel Integration
+
+- Append the `GbowoServiceProvider` to the `provider` key in `config/app.php`
+
+```php
+Gbowo\Bridge\Laravel\GbowoServiceProvider::class
+```
+
+- Get the config file
+```bash
+artisan vendor:publish
+```
+
+- Optional, you can also make use of facades by adding this to the `aliases` key in `config/app.php`
+
+```php
+
+"Gbowo" : Gbowo\Bridge\Laravel\Facades::class
+
+```
+
+
+##### Usage
+
+```php
+
+$paystackAdapter = app("gbowo")->adapter("paystack"); //or "amplifypay"
+
+$authorization_uri = $paystackAdapter->charge(["email" => "root@app.com" , "amount" => 8000]); //can add some other key pair to the array
+
+return redirect($authorization_uri);
+
+```
+
+> Calling the `adapter` method without passing in a string would return an instance of the default adapter set in the config file.
+
+### Adding custom adapters
+
+If you have written a custom adapter, you can include this in your app by doing what is obtainable below in a `ServiceProvider` of your choice.
+
+```php
+
+$config = ["key" => "value", "other" => "stuff"]; //some bootstrap options your adapter might need.
+
+$this->app["gbowo"]->extend("voguepay" , function() use ($config)){
+    return new VoguePayAdapter($config);
+});
+
+```
+
+And you can access this new adapter anywhere in your code via 
+
+```php
+
+$voguePay = $this->app["gbowo"]->adapter("voguePay");
+
+$voguePay->charge(['c' => 'd']);
 
 ```
 
@@ -220,7 +282,7 @@ Awesome, I'd love that. Fork, send PR. But hey, unit testing is one honking grea
 
 ### Bug Reports, Issue tracking and Security Vulnerabilities
 
-Please make use of the [issue tracker](https://github.com/adelowo/gbowo/issues) for bug reports, feature request and others except Security issues. If you do discover a vulnerability, please send a mail to me@adelowolanre.com.
+Please make use of the [issue tracker](https://github.com/adelowo/gbowo/issues) for bug reports, feature request and others except Security issues. If you do discover a vulnerability, please send a mail to `me@adelowolanre.com`.
 
 ### License
 [MIT](http://opensource.org/licenses/MIT)
