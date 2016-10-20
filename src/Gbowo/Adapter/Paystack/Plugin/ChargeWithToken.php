@@ -22,9 +22,9 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
      * The relative link for charging users
      * @var string
      */
-    const TOKEN_CHARGE_RELATIVE_LINK = "/charge_token";
+    const TOKEN_CHARGE_RELATIVE_LINK = "/transaction/charge_authorization";
 
-    const SUCCESS_MESSAGE = "Charge successful";
+    const SUCCESS_MESSAGE = "Successful";
     /**
      * @var string
      */
@@ -37,17 +37,11 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
 
     public function handle(array $data)
     {
-        if (!array_key_exists("token", $data)) {
-            throw new InvalidArgumentException(
-                "A token must be specified"
-            );
-        }
-
         $response = $this->chargeByToken($data);
 
         $res = json_decode($response->getBody(), true);
 
-        if (strcmp($res['message'], self::SUCCESS_MESSAGE) !== 0) {
+        if (strcmp($res['data']['gateway_response'], self::SUCCESS_MESSAGE) !== 0) {
             throw new TransactionVerficationFailedException(
                 "The transaction was not successful"
             );

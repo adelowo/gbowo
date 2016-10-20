@@ -18,7 +18,7 @@ class GetAllCustomers extends AbstractPlugin
     /**
      * @var string
      */
-    const CUSTOMERS_LINK = "/customers";
+    const CUSTOMERS_LINK = "/customer";
 
     /**
      * The base url for the api
