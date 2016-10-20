@@ -8,6 +8,7 @@ use Gbowo\Contract\Adapter\AdapterInterface;
  * @author Lanre Adelowo <me@adelowolanre.com>
  * Class Gbowo
  * @package Gbowo
+ * @deprecated
  */
 class Gbowo
 {
