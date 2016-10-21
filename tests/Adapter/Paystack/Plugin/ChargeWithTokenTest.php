@@ -21,6 +21,7 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
         $data = [
             "message" => ChargeWithToken::SUCCESS_MESSAGE,
             "data" => [
+                "gateway_response" => ChargeWithToken::SUCCESS_MESSAGE,
                 "amount" => 4000,
                 "transaction_date" => (new \DateTime("today"))->format("Y-m-d"),
                 "status" => "success",
@@ -28,13 +29,13 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $mockedResonse->shouldReceive('getBody')
-            ->once()
-            ->andReturn(\GuzzleHttp\json_encode($data));
-
         $httpClient->shouldReceive('post')
             ->once()
             ->andReturn($mockedResonse);
+
+        $mockedResonse->shouldReceive('getBody')
+            ->once()
+            ->andReturn(\GuzzleHttp\json_encode($data));
 
         $paystackAdapter = new PaystackAdapter($httpClient);
 
@@ -52,29 +53,6 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testUserTokenNotProvided()
-    {
-        $mockedResponse = $this->getMockedResponseInterface();
-
-        $mockedResponse->shouldReceive('getBody')
-            ->never()
-            ->andReturnSelf();
-
-        $httpclient = $this->getMockedGuzzle();
-        $httpclient->shouldReceive('post')
-            ->never()
-            ->andReturnSelf();
-
-        $paystack = new PaystackAdapter($httpclient);
-
-        $paystack->addPlugin(new ChargeWithToken(PaystackAdapter::API_LINK));
-
-        $paystack->chargeWithToken(["email" => "me@adelowolanre.com", "bool" => true]);
-    }
-
-    /**
      * @expectedException \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
      */
     public function testInvalidTransactionMessageIsReturned()
@@ -87,7 +65,8 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
                 "amount" => 4000,
                 "transaction_date" => (new \DateTime("today"))->format("Y-m-d"),
                 "status" => "success",
-                "reference" => \Gbowo\generate_trans_ref()
+                "reference" => \Gbowo\generate_trans_ref(),
+                "gateway_response" => "bad"
             ]
         ];
 
