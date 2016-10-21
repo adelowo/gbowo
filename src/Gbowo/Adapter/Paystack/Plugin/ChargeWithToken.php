@@ -2,7 +2,6 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
-use InvalidArgumentException;
 use Gbowo\Contract\Customer\BillInterface;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
