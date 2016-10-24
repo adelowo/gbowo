@@ -9,8 +9,15 @@
 https://insight.sensiolabs.com/projects/bade68de-1511-4d67-85dc-09f6e23c5ea0)
 [![Total Downloads](https://img.shields.io/packagist/dt/adelowo/gbowo.svg?style=flat-square)](https://packagist.org/packages/adelowo/gbowo)
 
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Adapters](#adapters)
+- [Plugins](#plugins)
+- [Framework Integration/Bridges](#frameworks)
+    - [Laravel](#laravel)
 
-### Installation
+<h2 id="installation">Installation
+</h2>
 
 Install Gbowo via one of the following methods :
 
@@ -30,7 +37,7 @@ Install Gbowo via one of the following methods :
 
 > If downloading the library without composer or cloning directly from the repository, you'd have to write an autoloader yourself. My bad
 
-### Usage
+<h2 id="usage"> Usage </h2>
 
 ```php
 
@@ -55,7 +62,7 @@ exit();
 
 ```
 
-### Adapters
+<h2 id="adapters">Adapters</h2>
 
 _Gbowo_ ships with two adapters : one for [paystack](https://paystack.co) and the other for [Amplifypay](https://amplifypay.com).
 
@@ -119,7 +126,7 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 * `getPaymentData(string $transRef)`
 
 
-### Extending Adapters via Plugins
+<h2 id="plugins">Extending Adapters via Plugins</h2>
 
 Different gateways implement various features and there's no way we can support all of them without losing our sanity.
 
@@ -216,7 +223,9 @@ $adapter->addPlugin(new GetAllCustomers(PaystackAdapter::API_LINK))
 
 ```
 
-### Laravel Integration
+<div id="frameworks">
+
+</h2 id="laravel">Laravel Integration </h2>
 
 - Append the `GbowoServiceProvider` to the `provider` key in `config/app.php`
 
@@ -275,6 +284,8 @@ $voguePay = $this->app["gbowo"]->adapter("voguePay");
 $voguePay->charge(['c' => 'd']);
 
 ```
+
+</div>
 
 ### Contributing
 
