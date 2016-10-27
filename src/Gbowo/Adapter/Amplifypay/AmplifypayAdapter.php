@@ -41,7 +41,7 @@ class AmplifypayAdapter implements AdapterInterface
     /**
      * @var string
      */
-    protected $baseUrl = 'https://api.amplifypay.com/merchant';
+    const BASE_URL = 'https://api.amplifypay.com/merchant';
 
     /**
      * Only pass a client constructor in if it (client object) has been properly bootstrapped
@@ -62,9 +62,9 @@ class AmplifypayAdapter implements AdapterInterface
 
     protected function registerPlugins()
     {
-        $this->addPlugin(new GetPaymentData($this->baseUrl, $this->apiKeys))
-            ->addPlugin(new ChargeWithToken($this->baseUrl, $this->apiKeys))
-            ->addPlugin(new UnsubscribeCustomer($this->baseUrl, $this->apiKeys));
+        $this->addPlugin(new GetPaymentData(self::BASE_URL, $this->apiKeys))
+            ->addPlugin(new ChargeWithToken(self::BASE_URL, $this->apiKeys))
+            ->addPlugin(new UnsubscribeCustomer(self::BASE_URL, $this->apiKeys));
     }
 
     public function charge(array $data)
@@ -84,7 +84,7 @@ class AmplifypayAdapter implements AdapterInterface
         /**
          * @var ResponseInterface $data
          */
-        $data = $this->httpClient->post($this->baseUrl . $relative, [
+        $data = $this->httpClient->post(self::BASE_URL . $relative, [
             'body' => json_encode($data)
         ]);
 
@@ -112,7 +112,7 @@ class AmplifypayAdapter implements AdapterInterface
     protected function setHttpClient() : Client
     {
         return new Client([
-            'base_uri' => $this->baseUrl,
+            'base_uri' => self::BASE_URL,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
