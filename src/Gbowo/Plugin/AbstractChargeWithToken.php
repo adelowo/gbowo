@@ -11,7 +11,7 @@ use Gbowo\Contract\Plugin\PluginInterface;
  * Class AbstractChargeWithToken
  * @package Gbowo\Plugin
  */
-abstract class AbstractChargeWithToken extends AbstractPlugin implements PluginInterface
+abstract class AbstractChargeWithToken extends AbstractPlugin
 {
 
 

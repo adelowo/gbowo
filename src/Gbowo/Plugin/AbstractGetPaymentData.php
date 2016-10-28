@@ -10,7 +10,7 @@ use Gbowo\Contract\Plugin\PluginInterface;
  * Class AbstractGetPaymentData
  * @package Gbowo\Plugin
  */
-abstract class AbstractGetPaymentData extends AbstractPlugin implements PluginInterface
+abstract class AbstractGetPaymentData extends AbstractPlugin
 {
 
     final public function getPluginAccessor() : string
