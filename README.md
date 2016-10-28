@@ -118,12 +118,17 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 * `getAllCustomers()`
 * `chargeWithToken(array $userToken)` // a token plus email address (or custom stuff)
 * `getPaymentData(string $transRef)`
+* `fetchPlan($planIdentifier)`
+* `fetchAllPlans()`
 
 [Amplifypay](https://amplifypay.com) :
 
 * `unsubcribeCustomerFromPlan(array $data)`
 * `chargeWithToken(array $userToken)` //a token in amplifypay is a key pair of values.
 * `getPaymentData(string $transRef)`
+* `fetchPlan($planIdentifier)`
+* `fetchAllPlans()`
+
 
 
 <h2 id="plugins">Extending Adapters via Plugins</h2>
@@ -141,9 +146,9 @@ A look at the [paystack adapter](src/Gbowo/Adapter/Paystack/PaystackAdapter.php)
 * `getHttpClient()`
 * `charge(array $data = null)` //This is gotten from the `AdapterInterface` implemented.
 
-But a look at their `registerPlugins` method tells how the methods described in the `Adapters method` section above come about.
+But a look at their `registerPlugins` method  - which is gotten from the __Pluggable__ trait - tells how the methods described in the `Adapters method` section above come about.
 
-A plugin is a plain PHP class that **MUST** implement the `Plugin` interface. This interface exposes two methods :
+A plugin is a plain PHP class that **MUST** implement the `PluginInterface`. This interface exposes two methods :
 * `getPluginAccessor() : string`
 * `setAdapter(Adapter $adapter)`
 
@@ -151,9 +156,9 @@ A plugin is a plain PHP class that **MUST** implement the `Plugin` interface. Th
 
 namespace Vendor/AdapterName/Plugin;
 
-use Gbowo/Contract/Plugin/Plugin;
+use Gbowo/Contract/Plugin/PluginInterface;
 
-class ApiPinger implements Plugin
+class ApiPinger implements PluginInterface
 {
 
     public function getPluginAccessor():string
