@@ -228,9 +228,9 @@ $adapter->addPlugin(new GetAllCustomers(PaystackAdapter::API_LINK))
 
 ```
 
-<div id="frameworks">
+<h2 id="frameworks"> Framework Integration</h2>
 
-</h2 id="laravel">Laravel Integration </h2>
+<h2 id="laravel">Laravel </h2>
 
 - Append the `GbowoServiceProvider` to the `provider` key in `config/app.php`
 
@@ -289,8 +289,6 @@ $voguePay = $this->app["gbowo"]->adapter("voguePay");
 $voguePay->charge(['c' => 'd']);
 
 ```
-
-</div>
 
 ### Contributing
 
