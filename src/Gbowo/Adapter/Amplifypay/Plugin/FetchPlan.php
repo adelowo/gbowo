@@ -26,7 +26,7 @@ class FetchPlan extends AbstractFetchPlan
      */
     protected $apiKeys;
 
-    const FETCH_PLAN_RELATIVE_LINK = "/plan/:identifier";
+    const FETCH_PLAN_RELATIVE_LINK = "/plan";
 
     public function __construct(string $baseUrl, array $apiKeys)
     {
@@ -41,7 +41,7 @@ class FetchPlan extends AbstractFetchPlan
      */
     public function handle($planIdentifier)
     {
-        $link = $this->baseUrl."?PlanId={$planIdentifier}";
+        $link = $this->baseUrl.self::FETCH_PLAN_RELATIVE_LINK."?PlanId={$planIdentifier}";
 
         /**
          * @var ResponseInterface $response
