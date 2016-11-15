@@ -2,15 +2,19 @@
 
 namespace Gbowo;
 
-/**
- * * Load a value from `$_ENV`.
- * Cannot use `function_exists` check since it (`function_exists`) checks the global functions [not namespaced]
- * @param string $value
- * @return mixed
- */
-function env(string $value)
-{
-    return $_ENV[$value];
+if (!function_exists("env")) {
+
+    /**
+     * * Load a value from `$_ENV`.
+     * Cannot use `function_exists` check since it (`function_exists`) checks the global functions [not namespaced]
+     * @param string $value
+     * @return mixed
+     */
+
+    function env(string $value)
+    {
+        return $_ENV[$value];
+    }
 }
 
 if (!function_exists('generate_trans_ref')) {
