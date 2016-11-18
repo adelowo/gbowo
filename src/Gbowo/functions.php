@@ -2,7 +2,7 @@
 
 namespace Gbowo;
 
-if (!function_exists("env")) {
+if (!function_exists("Gbowo\\env")) {
 
     /**
      * * Load a value from `$_ENV`.
@@ -17,7 +17,7 @@ if (!function_exists("env")) {
     }
 }
 
-if (!function_exists('generate_trans_ref')) {
+if (!function_exists("Gbowo\\generate_trans_ref")) {
 
     /**
      * Generate a cryptographically secure random string
