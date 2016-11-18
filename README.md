@@ -12,6 +12,7 @@ https://insight.sensiolabs.com/projects/bade68de-1511-4d67-85dc-09f6e23c5ea0)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Adapters](#adapters)
+        - [Custom Adapters](#extend)
 - [Plugins](#plugins)
 - [Framework Integration/Bridges](#frameworks)
     - [Laravel](#laravel)
@@ -63,6 +64,15 @@ exit();
 ```
 
 <h2 id="adapters">Adapters</h2>
+
+#### Quick usage
+```php
+$adapter = (new \Gbowo\GbowoFactory())->createAdapter("paystack"); //or "amplifypay"
+
+return $adapter->charge();
+```
+
+#### Usage in depth
 
 _Gbowo_ ships with two adapters : one for [paystack](https://paystack.co) and the other for [Amplifypay](https://amplifypay.com).
 
@@ -130,6 +140,33 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 * `fetchAllPlans()`
 
 
+<h2 id="extend">Custom Plugins</h2>
+
+> Using laravel, please check out how to [add your custom adapter](#laravel)
+
+```php
+
+//let's assume it is an enterprisey app
+
+$interswitch = new class implements \Gbowo\Contract\Adapter\AdapterInterface
+{
+    protected $interswitch;
+
+    public function __construct()
+    {
+        $this->interswitch = new \stdClass(new \ArrayObject(new \stdClass())); // It wasn't me
+    }
+
+    public function charge(array $data = [])
+    {
+        return "charged by interswitch";
+    }
+};
+
+$adapter = (new \Gbowo\GbowoFactory(["interswitch" => $interswitch]))->createAdapter("interswitch")
+
+var_dump($adapter instanceof \Gbowo\Contract\Adapter\AdapterInterface);
+```
 
 <h2 id="plugins">Extending Adapters via Plugins</h2>
 
