@@ -19,3 +19,9 @@
 * Added `\Gbowo\Adapter\AmplifyPay\Plugin\FetchPlan` plugin.
 * Added `\Gbowo\Adapter\AmplifyPay\Plugin\FetchAllPlans` plugin.
 
+## 1.1.1
+
+* Added `\Gbowo\GbowoFactory` for easy creation of adapters and adding custom adapters natively.
+* Fixed a bug that was experienced when using __Gbowo__ with Laravel. 
+  Both expose a `env` function. And this made __Gbowo__'s `env` to fail since the function didn't get registered.
+
