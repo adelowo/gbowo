@@ -140,7 +140,7 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 * `fetchAllPlans()`
 
 
-<h2 id="extend">Custom Plugins</h2>
+<h2 id="extend">Custom Adapters</h2>
 
 > Using laravel, please check out how to [add your custom adapter](#laravel)
 
