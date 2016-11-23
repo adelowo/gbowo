@@ -16,6 +16,7 @@ https://insight.sensiolabs.com/projects/bade68de-1511-4d67-85dc-09f6e23c5ea0)
 - [Plugins](#plugins)
 - [Framework Integration/Bridges](#frameworks)
     - [Laravel](#laravel)
+- [Example Application](#example)
 
 <h2 id="installation">Installation
 </h2>
@@ -326,6 +327,12 @@ $voguePay = $this->app["gbowo"]->adapter("voguePay");
 $voguePay->charge(['c' => 'd']);
 
 ```
+
+<h2 id="example"> </h2>
+##### Sample App
+
+[Gbowo-app](https://github.com/adelowo/gbowo-app) - Built with SlimPHP.
+
 
 ### Contributing
 
