@@ -40,7 +40,7 @@ class FetchAllPlans extends AbstractFetchAllPlans
     public function handle()
     {
 
-        $link = $this->baseUrl. str_replace(":m",$this->apiKeys['merchantId'],self::ALL_PLANS_RELATIVE_LINK);
+        $link = $this->baseUrl . str_replace(":m", $this->apiKeys['merchantId'], self::ALL_PLANS_RELATIVE_LINK);
 
         $link = str_replace(":key", $this->apiKeys['apiKey'], $link);
 

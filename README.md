@@ -223,7 +223,7 @@ In addition to this, a plugin must be defined as handleable. As of now, our Ping
  To fix this and make our plugin do some real work, an `handle` method **MUST** be defined with it own's arguments.
 
 > We do not enforce the handle method via an interface as some plugins might need just one argument, two args, or even 4 ( 2 `string`s, one `array`, one `int`).
-But whatever the args required, be sure all are appropriately passed.
+But whatever the args required, be sure all would be passed to the `handle` method appropriately.
 
 ```php
 

@@ -23,6 +23,12 @@ class GbowoFactory
 
         if (!empty($types)) {
             foreach ($types as $type => $value) {
+                if (array_key_exists($type, $this->availableAdapters)) {
+                    throw $this->throwException(
+                        "You cannot override an internal adapter"
+                    );
+                }
+
                 if (!$value instanceof AdapterInterface) {
                     throw $this->throwException("This is not a valid adapter");
                 }
