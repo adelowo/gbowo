@@ -25,3 +25,6 @@
 * Fixed a bug that was experienced when using __Gbowo__ with Laravel. 
   Both expose a `env` function. And this made __Gbowo__'s `env` to fail since the function didn't get registered.
 
+## 1.1.2
+* BugFix - prevented an internal adapter from being overriden when adding a custom adapter with the same key as one defined in \Gbowo\GbowoFactory
+
