@@ -103,9 +103,26 @@ class GbowoFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvalidCustomAdapterIsMountedAtRuntime()
     {
         $custom = [
-          "xxxx" => new \stdClass()
+            "xxxx" => new \stdClass()
         ];
 
         $this->factory($custom)->createAdapter("xxxx");
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testInternalAdapterClassCannotBeOverridden()
+    {
+        $newPaystackAdapter = new class implements AdapterInterface
+        {
+
+            public function charge(array $data)
+            {
+                return "charged by new paystack adapter";
+            }
+        };
+
+        $this->factory([GbowoFactory::PAYSTACK => $newPaystackAdapter])->createAdapter("paystack");
     }
 }
