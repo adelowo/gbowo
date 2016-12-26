@@ -10,7 +10,7 @@
 
 ## 1.0.1
 
-* Marked `AmplifyPayAdapter::baseUrl` as a constant to allow it's access from plugins not in the core.
+* Marked `AmplifyPayAdapter::BASE_URL` as a constant to allow it's access from plugins not in the core.
 
 ## 1.1.0
 
@@ -28,3 +28,7 @@
 ## 1.1.2
 * BugFix - prevented an internal adapter from being overriden when adding a custom adapter with the same key as one defined in \Gbowo\GbowoFactory
 
+## 1.2.0
+* Added `Gbowo\Exception\UnknownAdapterException`. This is thrown only by the `Gbowo\GbowoFactory`
+* Improvement/BugFix - Return the instance attached to `Gbowo\GbowoFactory` ___as is___ rather than re-instantiating it - `new`ing it up . 
+This is to prevent running into dependency issues, as a custom adapter might require some certain class/config value in it's constructor. If that happens, `Gbowo\GbowoFactory` cannot figure that out as it is not a `Container`.

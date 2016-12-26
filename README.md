@@ -125,6 +125,7 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 
 [Paystack](https://paystack.co) :
 
+* `charge(array $data = [])`
 * `getCustomer(int $id)`
 * `getAllCustomers()`
 * `chargeWithToken(array $userToken)` // a token plus email address (or custom stuff)
@@ -134,12 +135,14 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 
 [Amplifypay](https://amplifypay.com) :
 
+* `charge(array $data = [])`
 * `unsubcribeCustomerFromPlan(array $data)`
 * `chargeWithToken(array $userToken)` //a token in amplifypay is a key pair of values.
 * `getPaymentData(string $transRef)`
 * `fetchPlan($planIdentifier)`
 * `fetchAllPlans()`
 
+> The `charge` method parameter (`array $data = []`) should contain stuffs like amount, email, x, y, z). Those would be handed over to the payment gateway
 
 <h2 id="extend">Custom Adapters</h2>
 
@@ -164,9 +167,11 @@ $interswitch = new class implements \Gbowo\Contract\Adapter\AdapterInterface
     }
 };
 
-$adapter = (new \Gbowo\GbowoFactory(["interswitch" => $interswitch]))->createAdapter("interswitch")
+$adapter = new \Gbowo\GbowoFactory(["interswitch" => $interswitch]); //add the interswith adapter as a custom one.
 
-var_dump($adapter instanceof \Gbowo\Contract\Adapter\AdapterInterface);
+$interswitchAdapter = $adapter->createAdapter("interswitch");
+
+$interswitchAdapter->charge(['a' => 'b', 'c' => 'd']);
 ```
 
 <h2 id="plugins">Extending Adapters via Plugins</h2>
@@ -182,7 +187,7 @@ To prevent this, _Gbowo_ implements a plugin architecture that eases extension o
 A look at the [paystack adapter](src/Gbowo/Adapter/Paystack/PaystackAdapter.php) and [amplifypay](src/Gbowo/Adapter/Amplifypay/AmplifypayAdapter.php) would reveal that they do not have the methods described above in their public api. In fact they expose only 3 methods :
 * `__construct(Client $client = null)` // if it counts as one
 * `getHttpClient()`
-* `charge(array $data = null)` //This is gotten from the `AdapterInterface` implemented.
+* `charge(array $data = [])` //This is gotten from the `AdapterInterface` implemented.
 
 But a look at their `registerPlugins` method  - which is gotten from the __Pluggable__ trait - tells how the methods described in the `Adapters method` section above come about.
 
@@ -192,7 +197,7 @@ A plugin is a plain PHP class that **MUST** implement the `PluginInterface`. Thi
 
 ```php
 
-namespace Vendor/AdapterName/Plugin;
+namespace Vendor\AdapterName\Plugin;
 
 use Gbowo/Contract/Plugin/PluginInterface;
 
@@ -209,7 +214,8 @@ class ApiPinger implements PluginInterface
      */
     public function setAdapter(AdapterInterface $adapter)
     {
-        $this->adapter = $adapter ; //useful for helpers like getting the already configured Client object
+        //useful for helpers like getting stuffs from "accessors" on the adapter instance like the already configured HttpClient object
+        $this->adapter = $adapter ; 
         return $this;
     }
 }
@@ -294,11 +300,17 @@ artisan vendor:publish
 
 ```php
 
-$paystackAdapter = app("gbowo")->adapter("paystack"); //or "amplifypay"
-
-$authorization_uri = $paystackAdapter->charge(["email" => "root@app.com" , "amount" => 8000]); //can add some other key pair to the array
-
-return redirect($authorization_uri);
+class SomeController extends Controller
+{
+    public function chargeCustomer(Request $request)
+    {
+        $paystackAdapter = app("gbowo")->adapter("paystack"); //or "amplifypay"
+        
+        $data = ["email" => $request->get('email') , "amount" => $request->get('amount')];
+        
+        return redirect($paystackAdapter->charge($data));
+    }
+}
 
 ```
 
@@ -322,7 +334,7 @@ And you can access this new adapter anywhere in your code via
 
 ```php
 
-$voguePay = $this->app["gbowo"]->adapter("voguePay");
+$voguePay = app("gbowo")->adapter("voguePay");
 
 $voguePay->charge(['c' => 'd']);
 
