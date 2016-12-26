@@ -3,7 +3,7 @@
 
 namespace Gbowo;
 
-use InvalidArgumentException;
+use Gbowo\Exception\UnknownAdapterException;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
@@ -15,6 +15,9 @@ class GbowoFactory
 
     const AMPLIFY_PAY = "amplifypay";
 
+    /**
+     * @var AdapterInterface[]
+     */
     protected $availableAdapters = [];
 
     public function __construct(array $types = [])
@@ -22,17 +25,7 @@ class GbowoFactory
         $this->setDefaultAdapters();
 
         if (!empty($types)) {
-            foreach ($types as $type => $value) {
-                if (array_key_exists($type, $this->availableAdapters)) {
-                    throw $this->throwException(
-                        "You cannot override an internal adapter"
-                    );
-                }
-
-                if (!$value instanceof AdapterInterface) {
-                    throw $this->throwException("This is not a valid adapter");
-                }
-            }
+            $this->validateCustomAdapters($types);
             $this->availableAdapters = array_merge($this->availableAdapters, $types);
         }
     }
@@ -40,20 +33,39 @@ class GbowoFactory
     protected function setDefaultAdapters()
     {
         $this->availableAdapters = [
-            self::PAYSTACK => PaystackAdapter::class,
-            self::AMPLIFY_PAY => AmplifypayAdapter::class
+            self::PAYSTACK => new PaystackAdapter(),
+            self::AMPLIFY_PAY => new AmplifypayAdapter()
         ];
+    }
+
+    /**
+     * @param array $types
+     * @throws \Gbowo\Exception\UnknownAdapterException
+     */
+    protected function validateCustomAdapters(array $types)
+    {
+        foreach ($types as $type => $value) {
+            if (array_key_exists($type, $this->availableAdapters)) {
+                throw $this->throwException(
+                    "You cannot override an internal adapter"
+                );
+            }
+
+            if (!$value instanceof AdapterInterface) {
+                throw $this->throwException("This is not a valid adapter");
+            }
+        }
     }
 
     protected function throwException(string $message)
     {
-        return new InvalidArgumentException($message);
+        return new UnknownAdapterException($message);
     }
 
     /**
      * @param string $adapterIdentifier
-     * @return AdapterInterface
-     * @throws InvalidArgumentException
+     * @return \Gbowo\Contract\Adapter\AdapterInterface
+     * @throws \Gbowo\Exception\UnknownAdapterException
      */
     public function createAdapter(string $adapterIdentifier)
     {
@@ -63,6 +75,6 @@ class GbowoFactory
             );
         }
 
-        return new $this->availableAdapters[$adapterIdentifier];
+        return $this->availableAdapters[$adapterIdentifier];
     }
 }
