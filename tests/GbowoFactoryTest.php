@@ -90,7 +90,7 @@ class GbowoFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Gbowo\Exception\UnknownAdapterException
      */
     public function testUnknownAdapterIsRequested()
     {
@@ -98,7 +98,7 @@ class GbowoFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Gbowo\Exception\UnknownAdapterException
      */
     public function testInvalidCustomAdapterIsMountedAtRuntime()
     {
