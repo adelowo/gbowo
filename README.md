@@ -121,6 +121,8 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 
 ```
 
+> When you call the `getPaymentData` on the paystack adapter. The reference is verified by paystack before a response is sent
+
 ### Adapters Methods.
 
 [Paystack](https://paystack.co) :
