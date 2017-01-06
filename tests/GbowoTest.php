@@ -3,10 +3,8 @@
 namespace Gbowo\Tests;
 
 use Gbowo\Gbowo;
-use LogicException;
 use Gbowo\Plugin\AbstractPlugin;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
-use Gbowo\Tests\Fixtures\UnhandleablePlugin;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
 
 class GbowoTest extends \PHPUnit_Framework_TestCase
@@ -29,24 +27,6 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
 
 
         $gbowo->unknownPlugin(10);
-
-    }
-
-    /**
-     * @expectedException LogicException
-     * @expectedExceptionMessage is not a callable plugin as it does not have an handle method
-     */
-    public function testPluginCannotBeHandled()
-    {
-        $httpClient = $this->getMockedGuzzle();
-
-        $paystack = new PaystackAdapter($httpClient);
-
-        $paystack->addPlugin(new UnhandleablePlugin());
-
-        $gbowo = new Gbowo($paystack);
-
-        $gbowo->unhandleable(10);
 
     }
 
@@ -95,7 +75,7 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @see Gbowo::__call
-     * Initially would allow only a single param to be passed in
+     * This also show multiple args can still be accepted if a plugin wishes
      */
     public function testPluginExpectsMultipleArgs()
     {
@@ -112,9 +92,9 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
                 return 'dummy';
             }
 
-            public function handle(string $one, array $two)
+            public function handle(...$args)
             {
-                return func_get_args();
+                return $args;
             }
         };
 
