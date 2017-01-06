@@ -32,3 +32,6 @@
 * Added `Gbowo\Exception\UnknownAdapterException`. This is thrown only by the `Gbowo\GbowoFactory`
 * Improvement/BugFix - Return the instance attached to `Gbowo\GbowoFactory` ___as is___ rather than re-instantiating it - `new`ing it up . 
 This is to prevent running into dependency issues, as a custom adapter might require some certain class/config value in it's constructor. If that happens, `Gbowo\GbowoFactory` cannot figure that out as it is not a `Container`.
+
+## 1.3.0
+* Improvement - Enforce `handle` method of all Plugins by adding it as a method of `Gbowo\Contract\Plugin\PluginInterface`.

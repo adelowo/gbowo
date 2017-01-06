@@ -194,8 +194,10 @@ A look at the [paystack adapter](src/Gbowo/Adapter/Paystack/PaystackAdapter.php)
 But a look at their `registerPlugins` method  - which is gotten from the __Pluggable__ trait - tells how the methods described in the `Adapters method` section above come about.
 
 A plugin is a plain PHP class that **MUST** implement the `PluginInterface`. This interface exposes two methods :
+
 * `getPluginAccessor() : string`
 * `setAdapter(Adapter $adapter)`
+* `handle(...$args)`
 
 ```php
 
@@ -220,50 +222,41 @@ class ApiPinger implements PluginInterface
         $this->adapter = $adapter ; 
         return $this;
     }
+
+    /**
+     * Ping the gateway Api
+     * @param  bool $shouldThrow. Should an exception be thrown if the api is down ?.
+     * @return bool true - if the api is up and running.
+                   false - if the api is down and $throw is set to false.
+     * @throws \Exception if the api is down and $throw is set to false.
+     */
+    public function handle(...$args)
+    {
+        $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
+    
+        if (200 === $response->getStatusCode()) {
+            return true;
+        }
+    
+        if ($shouldTrue = $args[0]) {
+            throw new \Exception("API is dead", $response->getStatusCode());
+        }
+    
+        return false;
+    }
 }
 
 ```
 
 The `getPluginAccessor` is of tremendous interest here since it determines what plugin the method call should be deferred to. This is done by the magic method `__call` in the [`Pluggable`](src/Gbowo/Traits/Pluggable.php) trait.
 
-In addition to this, a plugin must be defined as handleable. As of now, our Pinger plugin does nothing when `$adapter->pingApi()` is called. Heck, an exception would even be thrown complaining about the plugin being un-handleable.
-
- To fix this and make our plugin do some real work, an `handle` method **MUST** be defined with it own's arguments.
-
-> We do not enforce the handle method via an interface as some plugins might need just one argument, two args, or even 4 ( 2 `string`s, one `array`, one `int`).
-But whatever the args required, be sure all would be passed to the `handle` method appropriately.
-
-```php
-
-//Class ApiPinger
-
-/**
- * Ping the gateway Api
- * @param  bool $throw Should an exception be thrown if the api is down ?.
- * @return bool true - if the api is up and running.
-               false - if the api is down and $throw is set to false.
- * @throws \Exception if the api is down and $throw is set to false.
- */
-public function handle(bool $throw = true)
-{
-    $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
-
-    if (200 === $response->getStatusCode()) {
-        return true;
-    }
-
-    if ($throw) {
-        throw new \Exception("API is dead", $response->getStatusCode());
-    }
-
-    return false;
-}
-
-```
-Remember to register the plugin like below :
 
 ```php
 $adapter->addPlugin(new Vendor/AdapterName/Plugin/ApiPinger(PaystackAdapter::API_LINK));
+//Usage like this
+
+$adapter->pingApi(true);
+$adapter->pingApi();
 
 ```
 Not all plugins would make it to the core eventually and not even all plugins in the core would be "added" on instantiation. For instance, the `GetAllCustomers` plugin isn't added to the `PaystackAdapter` internally. To use the plugin, you'd have to add it yourself.
