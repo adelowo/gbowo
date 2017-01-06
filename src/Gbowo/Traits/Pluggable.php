@@ -2,17 +2,10 @@
 
 namespace Gbowo\Traits;
 
-use LogicException;
 use Gbowo\Contract\Plugin\PluginInterface;
 use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\Exception\PluginNotFoundException;
 
-/**
- * Thank you Flysystem for this.
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class Pluggable
- * @package Gbowo\Traits
- */
 trait Pluggable
 {
 
@@ -39,8 +32,10 @@ trait Pluggable
      * @param array  $argument
      * @return mixed
      */
-    public function __call(string $pluginAccessor, array $argument)
-    {
+    public function __call(
+        string $pluginAccessor,
+        array $argument
+    ) {
         return $this->callPlugin($pluginAccessor, $argument, $this);
     }
 
@@ -50,12 +45,15 @@ trait Pluggable
      * @param \Gbowo\Contract\Adapter\AdapterInterface $adapter The adapter in use.
      * @return mixed
      */
-    public function callPlugin(string $accessor, array $argument, AdapterInterface $adapter)
-    {
+    public function callPlugin(
+        string $accessor,
+        array $argument,
+        AdapterInterface $adapter
+    ) {
         $plugin = $this->getPlugin($accessor);
         $plugin->setAdapter($adapter);
 
-        return call_user_func_array([$plugin, 'handle'], $argument);
+        return $plugin->handle(...$argument);
     }
 
     /**
@@ -66,14 +64,9 @@ trait Pluggable
      */
     public function getPlugin(string $accessor)
     {
-
         if (!isset($this->plugins[$accessor])) {
-            throw new PluginNotFoundException("Plugin with accessor, {$accessor} not found");
-        }
-
-        if (!method_exists($this->plugins[$accessor], 'handle')) {
-            throw new LogicException(
-                get_class($this->plugins[$accessor]) . ' is not a callable plugin as it does not have an handle method'
+            throw new PluginNotFoundException(
+                "Plugin with accessor, {$accessor} not found"
             );
         }
 

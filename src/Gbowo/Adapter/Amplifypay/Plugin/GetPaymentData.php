@@ -18,16 +18,8 @@ class GetPaymentData extends AbstractGetPaymentData
 
     const TRANSACTION_VERIFICATION = '/verify';
 
-    /**
-     * The API link
-     * @var string
-     */
     protected $baseUrl;
 
-    /**
-     * Authentication keys
-     * @var array
-     */
     protected $apiKeys;
 
     public function __construct(string $baseUrl, array $apiKeys)
@@ -37,22 +29,23 @@ class GetPaymentData extends AbstractGetPaymentData
     }
 
     /**
-     * @param string $reference
+     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException if the transaction failed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if the status code isn't 200
      */
-    public function handle(string $reference)
+    public function handle(...$args)
     {
+
         $link = $this->baseUrl .
             self::TRANSACTION_VERIFICATION .
-            "?transactionRef={$reference}&merchantId={$this->apiKeys['merchantId']}";
+            "?transactionRef={$args[0]}&merchantId={$this->apiKeys['merchantId']}";
 
         $response = $this->verifyTransaction($link);
 
         $verificationResponse = json_decode($response->getBody(), true);
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new InvalidHttpResponseException(
                 "Response status code must be 200. Got {$response->getStatusCode()} instead"
             );

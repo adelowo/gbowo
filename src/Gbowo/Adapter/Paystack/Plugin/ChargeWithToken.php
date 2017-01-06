@@ -8,12 +8,6 @@ use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
 use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
-/**
- * Charge a customer with the token returned from the first transaction initiated with the Paystack
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class ChargeWithToken
- * @package Gbowo\Adapter\Paystack\Plugin
- */
 class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
 {
 
@@ -34,9 +28,9 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
         $this->baseUrl = $baseUrl;
     }
 
-    public function handle(array $data)
+    public function handle(...$args)
     {
-        $response = $this->chargeByToken($data);
+        $response = $this->chargeByToken($args);
 
         $res = json_decode($response->getBody(), true);
 

@@ -8,11 +8,6 @@ use function GuzzleHttp\json_decode;
 use Psr\Http\Message\ResponseInterface;
 use Gbowo\Exception\InvalidHttpResponseException;
 
-/**
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class FetchPlan
- * @package Gbowo\Adapter\Paystack\Plugin
- */
 class FetchPlan extends AbstractFetchPlan
 {
 
@@ -21,9 +16,6 @@ class FetchPlan extends AbstractFetchPlan
      */
     const FETCH_PLAN_LINK = '/plan/:identifier';
 
-    /**
-     * @var string Paystack's base Url
-     */
     protected $baseUrl;
 
     public function __construct(string $baseUrl)
@@ -32,13 +24,14 @@ class FetchPlan extends AbstractFetchPlan
     }
 
     /**
-     * @param string $planIdentifier The unique plan identifier
+     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if ann http response of 200 isn't returned
      */
-    public function handle(string $planIdentifier)
+    public function handle(...$args)
     {
-        $link = $this->baseUrl . str_replace(":identifier", $planIdentifier, self::FETCH_PLAN_LINK);
+
+        $link = $this->baseUrl . str_replace(":identifier", $args[0], self::FETCH_PLAN_LINK);
 
         /**
          * @var ResponseInterface $response

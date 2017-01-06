@@ -8,22 +8,11 @@ use function GuzzleHttp\json_decode;
 use Psr\Http\Message\ResponseInterface;
 use Gbowo\Exception\InvalidHttpResponseException;
 
-/**
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class FetchPlan
- * @package Gbowo\Adapter\Amplifypay\Plugin
- */
 class FetchPlan extends AbstractFetchPlan
 {
 
-    /**
-     * @var string
-     */
     protected $baseUrl;
 
-    /**
-     * @var array
-     */
     protected $apiKeys;
 
     const FETCH_PLAN_RELATIVE_LINK = "/plan";
@@ -35,13 +24,14 @@ class FetchPlan extends AbstractFetchPlan
     }
 
     /**
-     * @param $planIdentifier The id or string representation of the plan
+     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if the response code is not 200
      */
-    public function handle($planIdentifier)
+    public function handle(...$args)
     {
-        $link = $this->baseUrl.self::FETCH_PLAN_RELATIVE_LINK."?PlanId={$planIdentifier}";
+
+        $link = $this->baseUrl.self::FETCH_PLAN_RELATIVE_LINK."?PlanId={$args[0]}";
 
         /**
          * @var ResponseInterface $response

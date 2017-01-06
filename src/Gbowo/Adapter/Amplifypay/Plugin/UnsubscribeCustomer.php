@@ -9,19 +9,11 @@ use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
 
-/**
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class UnsubscribeCustomer
- * @package Gbowo\Adapter\Amplifypay\Plugin
- */
 class UnsubscribeCustomer extends AbstractPlugin
 {
 
     use KeyVerifier;
 
-    /**
-     * @var string
-     */
     const UN_SUBSCRIBE_LINK = "/subscription/cancel";
 
     /**
@@ -33,14 +25,8 @@ class UnsubscribeCustomer extends AbstractPlugin
 
     const STATUS_DESCRIPTION_FAILURE = "Unsuccessfull Request";
 
-    /**
-     * @var string
-     */
     protected $baseUrl;
 
-    /**
-     * @var array
-     */
     protected $apiKeys;
 
     public function __construct(string $baseUrl, array $apiKeys)
@@ -55,22 +41,22 @@ class UnsubscribeCustomer extends AbstractPlugin
     }
 
     /**
-     * @param array $data
+     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
      * @throws \Gbowo\Exception\InvalidHttpResponseException if we don't get a 200 Status code
      */
-    public function handle(array $data)
+    public function handle(...$args)
     {
 
         $link = $this->baseUrl . self::UN_SUBSCRIBE_LINK;
 
         $response = $this->adapter->getHttpClient()
             ->post($link, [
-                'body' => json_encode(array_merge($this->apiKeys, $data))
+                'body' => json_encode(array_merge($this->apiKeys, $args[0]))
             ]);
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new InvalidHttpResponseException(
                 "Expected 200 HTTP status , got {$response->getStatusCode()} instead"
             );
