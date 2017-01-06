@@ -9,38 +9,19 @@ use Gbowo\Contract\Customer\BillInterface;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Psr\Http\Message\ResponseInterface;
 
-/**
- * A token in amplifypay refers to a pair of `transactionRef` and `authCode` gotten from a previously successful
- * payment.
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class ChargeWithToken
- * @package Gbowo\Adapter\Amplifypay\Plugin
- */
 class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
 {
 
     use KeyVerifier;
 
-    /**
-     * @see https://amplifypay.com/developers Unsubscribe a customer from plan
-     * @var string
-     */
     const SUCCESSFUL_TRANSACTION = "Successfull Request";
 
-    /**
-     * @var string
-     */
     const CHARGE_RETURNING_USER = "/returning/charge";
 
-    /**
-     * @var string
-     */
     protected $baseUrl;
 
-    /**
-     * @var array
-     */
     protected $apiKeys;
 
     public function __construct(string $baseUrl, array $apiKeys)
@@ -50,17 +31,17 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
     }
 
     /**
-     * @param array $data
+     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
      * @throws \Gbowo\Exception\InvalidHttpResponseException
      */
-    public function handle(array $data)
+    public function handle(...$args)
     {
 
-        $response = $this->chargeByToken($data);
+        $response = $this->chargeByToken($args[0]);
 
-        if ($response->getStatusCode() !== 200) {
+        if (200 !== $response->getStatusCode()) {
             throw new InvalidHttpResponseException(
                 "Expected 200 . Got {$response->getStatusCode()}"
             );
@@ -85,6 +66,11 @@ class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
         return $response;
     }
 
+
+    /**
+     * @param array $data
+     * @return ResponseInterface
+     */
     public function chargeByToken($data)
     {
         $link = $this->baseUrl . self::CHARGE_RETURNING_USER;
