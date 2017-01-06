@@ -5,24 +5,11 @@ namespace Gbowo\Adapter\Paystack\Plugin;
 use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
 
-/**
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class GetAllTransactions
- * @package Gbowo\Adapter\Paystack\Plugin
- */
 class GetAllTransactions extends AbstractPlugin
 {
 
-    /**
-     * Append this to the base url
-     * @var string
-     */
     const TRANSACTION_RELATIVE_LINK = "/transaction";
 
-    /**
-     * Paystack api's base uri
-     * @var string
-     */
     protected $baseUrl ;
 
     public function __construct(string $baseUrl)
@@ -35,7 +22,7 @@ class GetAllTransactions extends AbstractPlugin
         return "getAllTransactions";
     }
 
-    public function handle()
+    public function handle(...$args)
     {
 
         $response = json_decode(

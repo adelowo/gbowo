@@ -7,11 +7,6 @@ use function GuzzleHttp\json_decode;
 use Gbowo\Plugin\AbstractGetPaymentData;
 use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
-/**
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class GetPaymentData
- * @package Adelowo\Gbowo\Adapter\Paystack\Plugin
- */
 class GetPaymentData extends AbstractGetPaymentData
 {
 
@@ -19,14 +14,8 @@ class GetPaymentData extends AbstractGetPaymentData
 
     const INVALID_TRANSACTION = "Invalid transaction reference";
 
-    /**
-     * @var string
-     */
     const TRANSACTION_VERIFICATION = '/transaction/verify/';
 
-    /**
-     * @var string
-     */
     protected $baseUrl;
 
     public function __construct(string $baseUrl)
@@ -35,13 +24,14 @@ class GetPaymentData extends AbstractGetPaymentData
     }
 
     /**
-     * @param string $reference
+     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
      */
-    public function handle(string $reference)
+    public function handle(...$args)
     {
-        $link = $this->baseUrl . self::TRANSACTION_VERIFICATION . $reference;
+
+        $link = $this->baseUrl . self::TRANSACTION_VERIFICATION . $args[0];
 
         $result = json_decode($this->verifyTransaction($link), true);
 

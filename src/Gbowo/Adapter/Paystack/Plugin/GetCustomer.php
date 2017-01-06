@@ -5,19 +5,11 @@ namespace Gbowo\Adapter\Paystack\Plugin;
 use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
 
-/**
- * @author Lanre Adelowo <me@adelowolanre.com>
- * Class GetCustomer
- * @package Gbowo\Adapter\Paystack\Plugin
- */
 class GetCustomer extends AbstractPlugin
 {
 
     const CUSTOMER_LINK = '/customer/:id';
 
-    /**
-     * @var string
-     */
     protected $baseUrl;
 
     public function __construct(string $baseUrl)
@@ -33,9 +25,10 @@ class GetCustomer extends AbstractPlugin
         return "getCustomer";
     }
 
-    public function handle(int $id)
+    public function handle(...$args)
     {
-        $link = $this->baseUrl . str_replace(":id", $id, self::CUSTOMER_LINK);
+
+        $link = $this->baseUrl . str_replace(":id", $args[0], self::CUSTOMER_LINK);
 
         $result = json_decode($this->retrieveCustomerDetails($link), true);
 
