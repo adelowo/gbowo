@@ -2,13 +2,12 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
-use Gbowo\Contract\Customer\BillInterface;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
 use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
-class ChargeWithToken extends AbstractChargeWithToken implements BillInterface
+class ChargeWithToken extends AbstractChargeWithToken
 {
 
     /**
