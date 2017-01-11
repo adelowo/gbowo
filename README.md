@@ -121,6 +121,8 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 
 ```
 
+> The `getPaymentData` method can also be called on some transaction reference you have stored in your db or some other form of storage mechanism.
+
 > When you call the `getPaymentData` on the paystack adapter. The reference is verified by paystack before a response is sent
 
 ### Adapters Methods.
