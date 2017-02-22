@@ -254,7 +254,7 @@ The `getPluginAccessor` is of tremendous interest here since it determines what 
 
 
 ```php
-$adapter->addPlugin(new Vendor/AdapterName/Plugin/ApiPinger(PaystackAdapter::API_LINK));
+$adapter->addPlugin(new Vendor\AdapterName\Plugin\ApiPinger(PaystackAdapter::API_LINK));
 //Usage like this
 
 $adapter->pingApi(true);
