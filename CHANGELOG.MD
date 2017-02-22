@@ -35,3 +35,7 @@ This is to prevent running into dependency issues, as a custom adapter might req
 
 ## 1.3.0
 * Improvement - Enforce `handle` method of all Plugins by adding it as a method of `Gbowo\Contract\Plugin\PluginInterface`.
+
+## 1.3.1
+* BugFix - Fixed bug in `\Gbowo\Adapter\Paystack\Plugin\ChargeWithToken` sending unexpected data to paystack which leads to a failure to charge a user via the authentication token.
+
