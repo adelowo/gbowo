@@ -6,7 +6,6 @@ if (!function_exists("Gbowo\\env")) {
 
     /**
      * * Load a value from `$_ENV`.
-     * Cannot use `function_exists` check since it (`function_exists`) checks the global functions [not namespaced]
      * @param string $value
      * @return mixed
      */
