@@ -29,7 +29,7 @@ class ChargeWithToken extends AbstractChargeWithToken
 
     public function handle(...$args)
     {
-        $response = $this->chargeByToken($args);
+        $response = $this->chargeByToken($args[0]);
 
         $res = json_decode($response->getBody(), true);
 
