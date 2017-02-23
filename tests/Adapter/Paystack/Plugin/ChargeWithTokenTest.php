@@ -25,7 +25,7 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
                 "amount" => 4000,
                 "transaction_date" => (new \DateTime("today"))->format("Y-m-d"),
                 "status" => "success",
-                "reference" => \Gbowo\generate_trans_ref()
+                "reference" => \Gbowo\generateTransRef()
             ]
         ];
 
@@ -65,7 +65,7 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
                 "amount" => 4000,
                 "transaction_date" => (new \DateTime("today"))->format("Y-m-d"),
                 "status" => "success",
-                "reference" => \Gbowo\generate_trans_ref(),
+                "reference" => \Gbowo\generateTransRef(),
                 "gateway_response" => "bad"
             ]
         ];
