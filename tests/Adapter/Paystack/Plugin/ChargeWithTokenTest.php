@@ -44,7 +44,7 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
         $response = $paystackAdapter->chargeWithToken(
             [
                 "token" => "ballss2-3",
-                "amount" => 4000,
+                "amount" => \Gbowo\toKobo(40),
                 "email" => "me@adelowolanre.com"
             ]
         );
