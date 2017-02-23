@@ -25,3 +25,16 @@ if (!function_exists("Gbowo\\generateTransRef")) {
         return bin2hex(random_bytes($length));
     }
 }
+
+if (!function_exists("Gbowo\\toKobo")) {
+    /**
+     * Convert a given amount to it's kobo equivalent.
+     * This is just an helper function and you def' can do without it
+     * @param  $amount
+     * @return float
+     */
+    function toKobo($amount)
+    {
+        return $amount * 100;
+    }
+}
