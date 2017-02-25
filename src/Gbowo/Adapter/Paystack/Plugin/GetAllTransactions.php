@@ -7,7 +7,6 @@ use function GuzzleHttp\json_decode;
 
 class GetAllTransactions extends AbstractPlugin
 {
-
     const TRANSACTION_RELATIVE_LINK = "/transaction";
 
     protected $baseUrl ;
@@ -22,9 +21,8 @@ class GetAllTransactions extends AbstractPlugin
         return "getAllTransactions";
     }
 
-    public function handle(...$args)
+    public function handle() : array
     {
-
         $response = json_decode(
             $this->adapter->getHttpClient()
                 ->get($this->baseUrl.self::TRANSACTION_RELATIVE_LINK)

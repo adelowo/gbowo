@@ -3,14 +3,14 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
-use function GuzzleHttp\json_decode;
-use Gbowo\Plugin\AbstractFetchAllPlans;
-use Psr\Http\Message\ResponseInterface;
 use Gbowo\Exception\InvalidHttpResponseException;
+use Gbowo\Plugin\AbstractFetchAllPlans;
+use function Gbowo\toQueryParams;
+use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\json_decode;
 
 class FetchAllPlans extends AbstractFetchAllPlans
 {
-
     const FETCH_ALL_PLANS_RELATIVE_LINK = "/plan";
 
     /**
@@ -26,27 +26,13 @@ class FetchAllPlans extends AbstractFetchAllPlans
     }
 
     /**
-     * @param array ...$args
+     * @param array $args
      * @return mixed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if the HTTP response status code is not 200
      */
-    public function handle(...$args)
+    public function handle(array $args = [])
     {
-
-        $params = "";
-
-        if (count($args) !== 0) {
-
-            $queryParams = $args[0];
-
-            foreach ($queryParams as $key => $value) {
-                if (reset($queryParams) == $value) {
-                    $params .= "?{$key}={$value}";
-                } else {
-                    $params .= "&{$key}={$value}";
-                }
-            }
-        }
+        $params = toQueryParams($args);
 
         /**
          * @var ResponseInterface $response

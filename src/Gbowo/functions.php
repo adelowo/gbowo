@@ -38,3 +38,30 @@ if (!function_exists("Gbowo\\toKobo")) {
         return $amount * 100;
     }
 }
+
+if (!function_exists("Gbowo\\toQueryParams")) {
+    /**
+     * Converts a dictionary into HTTP query parameter(s) which can then be attached to a link
+     * ["name" => "Lanre", "hobby" => "Trolling"] gets formatted as ?name=lanre&hobby=trolling
+     * @param  array  $queryParams The dictionary to be converted
+     * @return string A string that represents a "key-value" url query formed from a dictionary
+     */
+    function toQueryParams(array $queryParams = []) : string
+    {
+        $params = "";
+
+        if (!$queryParams) {
+            return $params;
+        }
+
+        foreach ($queryParams as $key => $value) {
+            if (reset($queryParams) == $value) {
+                $params .= "?{$key}={$value}";
+            } else {
+                $params .= "&{$key}={$value}";
+            }
+        }
+
+        return $params;
+    }
+}

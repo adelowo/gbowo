@@ -2,6 +2,7 @@
 
 namespace Gbowo\Traits;
 
+use LogicException;
 use Gbowo\Contract\Plugin\PluginInterface;
 use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\Exception\PluginNotFoundException;
@@ -53,7 +54,13 @@ trait Pluggable
         $plugin = $this->getPlugin($accessor);
         $plugin->setAdapter($adapter);
 
-        return $plugin->handle(...$argument);
+        if (method_exists($plugin, "handle")) {
+            return $plugin->handle(...$argument);
+        }
+
+        throw new LogicException(
+            "A Plugin MUST have an handle method"
+        );
     }
 
     /**

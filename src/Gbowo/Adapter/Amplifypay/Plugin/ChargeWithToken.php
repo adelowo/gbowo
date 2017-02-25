@@ -12,7 +12,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class ChargeWithToken extends AbstractChargeWithToken
 {
-
     use KeyVerifier;
 
     const SUCCESSFUL_TRANSACTION = "Successfull Request";
@@ -30,15 +29,14 @@ class ChargeWithToken extends AbstractChargeWithToken
     }
 
     /**
-     * @param array ...$args
+     * @param  array $args
      * @return mixed
      * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
      * @throws \Gbowo\Exception\InvalidHttpResponseException
      */
-    public function handle(...$args)
+    public function handle(array $args)
     {
-
-        $response = $this->chargeByToken($args[0]);
+        $response = $this->chargeByToken($args);
 
         if (200 !== $response->getStatusCode()) {
             throw new InvalidHttpResponseException(

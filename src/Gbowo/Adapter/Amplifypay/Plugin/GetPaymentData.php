@@ -9,7 +9,6 @@ use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
 
 class GetPaymentData extends AbstractGetPaymentData
 {
-
     use KeyVerifier;
 
     const APPROVED_TRANSACTION_STATUS = "APPROVED";
@@ -29,17 +28,16 @@ class GetPaymentData extends AbstractGetPaymentData
     }
 
     /**
-     * @param array ...$args
+     * @param string $transactionRef
      * @return mixed
      * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException if the transaction failed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if the status code isn't 200
      */
-    public function handle(...$args)
+    public function handle(string $transactionRef)
     {
-
         $link = $this->baseUrl .
             self::TRANSACTION_VERIFICATION .
-            "?transactionRef={$args[0]}&merchantId={$this->apiKeys['merchantId']}";
+            "?transactionRef={$transactionRef}&merchantId={$this->apiKeys['merchantId']}";
 
         $response = $this->verifyTransaction($link);
 
@@ -67,7 +65,6 @@ class GetPaymentData extends AbstractGetPaymentData
         // Returning the response here signifies all went well.
 
         return $verificationResponse;
-
     }
 
     /**

@@ -11,7 +11,6 @@ use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
 
 class UnsubscribeCustomer extends AbstractPlugin
 {
-
     use KeyVerifier;
 
     const UN_SUBSCRIBE_LINK = "/subscription/cancel";
@@ -41,19 +40,18 @@ class UnsubscribeCustomer extends AbstractPlugin
     }
 
     /**
-     * @param array ...$args
+     * @param array $args
      * @return mixed
      * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
      * @throws \Gbowo\Exception\InvalidHttpResponseException if we don't get a 200 Status code
      */
-    public function handle(...$args)
+    public function handle(array $args)
     {
-
         $link = $this->baseUrl . self::UN_SUBSCRIBE_LINK;
 
         $response = $this->adapter->getHttpClient()
             ->post($link, [
-                'body' => json_encode(array_merge($this->apiKeys, $args[0]))
+                'body' => json_encode(array_merge($this->apiKeys, $args))
             ]);
 
         if (200 !== $response->getStatusCode()) {

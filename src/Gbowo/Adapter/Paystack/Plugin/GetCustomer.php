@@ -7,7 +7,6 @@ use function GuzzleHttp\json_decode;
 
 class GetCustomer extends AbstractPlugin
 {
-
     const CUSTOMER_LINK = '/customer/:id';
 
     protected $baseUrl;
@@ -25,10 +24,9 @@ class GetCustomer extends AbstractPlugin
         return "getCustomer";
     }
 
-    public function handle(...$args)
+    public function handle(string $customerId) : array
     {
-
-        $link = $this->baseUrl . str_replace(":id", $args[0], self::CUSTOMER_LINK);
+        $link = $this->baseUrl . str_replace(":id", $customerId, self::CUSTOMER_LINK);
 
         $result = json_decode($this->retrieveCustomerDetails($link), true);
 

@@ -2,7 +2,6 @@
 
 namespace Gbowo\Tests\Adapter\Paystack\Plugin;
 
-
 use DateTime;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
@@ -15,7 +14,6 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPaymentPluginIsCalled()
     {
-
         $mockedInterface = $this->getMockedResponseInterface();
 
         $data = [
@@ -42,7 +40,7 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
 
         $returnedData = $paystack->getPaymentData('token');
 
-        $this->assertEquals($data, $returnedData);
+        $this->assertEquals($data["data"], $returnedData);
     }
 
     /**
@@ -75,7 +73,5 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
         $paystack = new PaystackAdapter($httpClient);
 
         $paystack->getPaymentData('token');
-
     }
-
 }

@@ -10,7 +10,6 @@ use Gbowo\Exception\InvalidHttpResponseException;
 
 class FetchAllPlans extends AbstractFetchAllPlans
 {
-
     const ALL_PLANS_RELATIVE_LINK = "/plan?merchantId=:m&apiKey=:key";
 
     protected $baseUrl;
@@ -24,16 +23,14 @@ class FetchAllPlans extends AbstractFetchAllPlans
     }
 
     /**
-     * @param array ...$args
      * @return mixed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if the response status code is not 200
      */
-    public function handle(...$args)
+    public function handle()
     {
-
         $link = $this->baseUrl . str_replace(
             ":m", $this->apiKeys['merchantId'], self::ALL_PLANS_RELATIVE_LINK
-            );
+        );
 
         $link = str_replace(":key", $this->apiKeys['apiKey'], $link);
 

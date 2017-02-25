@@ -7,7 +7,6 @@ use function GuzzleHttp\json_decode;
 
 class GetAllCustomers extends AbstractPlugin
 {
-
     const CUSTOMERS_LINK = "/customer";
 
     protected $baseUrl;
@@ -23,7 +22,7 @@ class GetAllCustomers extends AbstractPlugin
         return "getAllCustomers";
     }
 
-    public function handle(...$args)
+    public function handle() : array
     {
         $response = json_decode(
             $this->adapter->getHttpClient()

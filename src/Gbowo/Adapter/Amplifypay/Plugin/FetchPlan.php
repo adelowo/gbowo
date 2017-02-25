@@ -10,7 +10,6 @@ use Gbowo\Exception\InvalidHttpResponseException;
 
 class FetchPlan extends AbstractFetchPlan
 {
-
     protected $baseUrl;
 
     protected $apiKeys;
@@ -24,14 +23,13 @@ class FetchPlan extends AbstractFetchPlan
     }
 
     /**
-     * @param array ...$args
+     * @param string $planId
      * @return mixed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if the response code is not 200
      */
-    public function handle(...$args)
+    public function handle(string $planId)
     {
-
-        $link = $this->baseUrl.self::FETCH_PLAN_RELATIVE_LINK."?PlanId={$args[0]}";
+        $link = $this->baseUrl.self::FETCH_PLAN_RELATIVE_LINK."?PlanId={$planId}";
 
         /**
          * @var ResponseInterface $response

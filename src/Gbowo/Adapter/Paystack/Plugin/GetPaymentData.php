@@ -9,7 +9,6 @@ use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
 class GetPaymentData extends AbstractGetPaymentData
 {
-
     const VERIFIED_TRANSACTION = 'Verification successful';
 
     const INVALID_TRANSACTION = "Invalid transaction reference";
@@ -24,14 +23,13 @@ class GetPaymentData extends AbstractGetPaymentData
     }
 
     /**
-     * @param array ...$args
+     * @param string $reference
      * @return mixed
      * @throws \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
      */
-    public function handle(...$args)
+    public function handle(string $reference) : array
     {
-
-        $link = $this->baseUrl . self::TRANSACTION_VERIFICATION . $args[0];
+        $link = $this->baseUrl . self::TRANSACTION_VERIFICATION . $reference;
 
         $result = json_decode($this->verifyTransaction($link), true);
 
@@ -45,7 +43,7 @@ class GetPaymentData extends AbstractGetPaymentData
             throw new TransactionVerficationFailedException(self::INVALID_TRANSACTION);
         }
 
-        return $result;
+        return $result["data"];
     }
 
     /**

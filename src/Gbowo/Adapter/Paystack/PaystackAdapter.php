@@ -22,7 +22,6 @@ use Gbowo\Adapter\Paystack\Plugin\ChargeWithToken;
  */
 class PaystackAdapter implements AdapterInterface
 {
-
     use Pluggable, Payable;
 
     /**
@@ -64,7 +63,6 @@ class PaystackAdapter implements AdapterInterface
      */
     public function charge(array $data)
     {
-
         $response = $this->decodeResponse(
             $this->authorizeTransaction("/transaction/initialize", $data),
             true

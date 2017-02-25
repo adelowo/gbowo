@@ -6,10 +6,7 @@ use Gbowo\Contract\Adapter\AdapterInterface;
 
 interface PluginInterface
 {
-
     public function getPluginAccessor() : string;
 
     public function setAdapter(AdapterInterface $adapter);
-
-    public function handle(...$args);
 }

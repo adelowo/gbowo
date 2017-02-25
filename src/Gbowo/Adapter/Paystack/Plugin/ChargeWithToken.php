@@ -27,9 +27,9 @@ class ChargeWithToken extends AbstractChargeWithToken
         $this->baseUrl = $baseUrl;
     }
 
-    public function handle(...$args)
+    public function handle(array $args) : array
     {
-        $response = $this->chargeByToken($args[0]);
+        $response = $this->chargeByToken($args);
 
         $res = json_decode($response->getBody(), true);
 

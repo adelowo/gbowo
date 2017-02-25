@@ -24,14 +24,13 @@ class FetchPlan extends AbstractFetchPlan
     }
 
     /**
-     * @param array ...$args
+     * @param string|int $identifier
      * @return mixed
      * @throws \Gbowo\Exception\InvalidHttpResponseException if ann http response of 200 isn't returned
      */
-    public function handle(...$args)
+    public function handle($identifier)
     {
-
-        $link = $this->baseUrl . str_replace(":identifier", $args[0], self::FETCH_PLAN_LINK);
+        $link = $this->baseUrl . str_replace(":identifier", $identifier, self::FETCH_PLAN_LINK);
 
         /**
          * @var ResponseInterface $response
