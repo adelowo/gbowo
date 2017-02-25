@@ -39,3 +39,9 @@ This is to prevent running into dependency issues, as a custom adapter might req
 ## 1.3.1
 * BugFix - Fixed bug in `\Gbowo\Adapter\Paystack\Plugin\ChargeWithToken` sending unexpected data to paystack which leads to a failure to charge a user via the authentication token.
 
+## 1.4.0 
+* Another improvement in the Plugin architecture. This isn't a breaking change. It's more of a revert to the style employed in <= 1.3.0 as it allows for much more readability and the style employed in 1.3.0 wasn't well thought out.
+* Added two helper methods :
+
+- `\Gbowo\toKobo` : Convert a given amount to it's kobo equivalent.
+- `\Gbowo\toQueryParams` : Convert a dictionary into a URI query.

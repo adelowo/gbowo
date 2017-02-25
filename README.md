@@ -199,7 +199,7 @@ A plugin is a plain PHP class that **MUST** implement the `PluginInterface`. Thi
 
 * `getPluginAccessor() : string`
 * `setAdapter(Adapter $adapter)`
-* `handle(...$args)`
+* `handle(string $reference)` //Typehint as much as you want. 2,3 args ? Your call.
 
 ```php
 
@@ -232,7 +232,7 @@ class ApiPinger implements PluginInterface
                    false - if the api is down and $throw is set to false.
      * @throws \Exception if the api is down and $throw is set to false.
      */
-    public function handle(...$args)
+    public function handle(bool $shouldThrow)
     {
         $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
     
@@ -240,7 +240,7 @@ class ApiPinger implements PluginInterface
             return true;
         }
     
-        if ($shouldTrue = $args[0]) {
+        if ($shouldThrow) {
             throw new \Exception("API is dead", $response->getStatusCode());
         }
     
