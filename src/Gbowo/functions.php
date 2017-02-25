@@ -55,10 +55,12 @@ if (!function_exists("Gbowo\\toQueryParams")) {
         }
 
         foreach ($queryParams as $key => $value) {
+            $encodedValue = urlencode($value);
+
             if (reset($queryParams) == $value) {
-                $params .= "?{$key}={$value}";
+                $params .= "?{$key}={$encodedValue}";
             } else {
-                $params .= "&{$key}={$value}";
+                $params .= "&{$key}={$encodedValue}";
             }
         }
 
