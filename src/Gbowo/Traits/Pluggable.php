@@ -44,6 +44,7 @@ trait Pluggable
      * @param string                                   $accessor The plugin accessor
      * @param array                                    $argument Args to pass to the plugin's `handle` method
      * @param \Gbowo\Contract\Adapter\AdapterInterface $adapter The adapter in use.
+     * @throws \LogicException if the plugin does not have an handle method
      * @return mixed
      */
     public function callPlugin(
@@ -67,7 +68,6 @@ trait Pluggable
      * @param string $accessor
      * @return \Gbowo\Contract\Plugin\PluginInterface
      * @throws \Gbowo\Exception\PluginNotFoundException If the plugin cannot be found
-     * @throws LogicException if the plugin does not have an method called `handle`
      */
     public function getPlugin(string $accessor)
     {
