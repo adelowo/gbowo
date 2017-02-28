@@ -2,6 +2,7 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
+use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
@@ -9,6 +10,8 @@ use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
 class ChargeWithToken extends AbstractChargeWithToken
 {
+
+    use VerifyHttpStatusResponseCode;
 
     /**
      * The relative link for charging users
@@ -30,6 +33,8 @@ class ChargeWithToken extends AbstractChargeWithToken
     public function handle(array $args) : array
     {
         $response = $this->chargeByToken($args);
+
+        $this->verifyResponse($response);
 
         $res = json_decode($response->getBody(), true);
 

@@ -2,11 +2,14 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
+use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
 
 class GetCustomer extends AbstractPlugin
 {
+    use VerifyHttpStatusResponseCode;
+
     const CUSTOMER_LINK = '/customer/:id';
 
     protected $baseUrl;
@@ -28,15 +31,17 @@ class GetCustomer extends AbstractPlugin
     {
         $link = $this->baseUrl . str_replace(":id", $customerId, self::CUSTOMER_LINK);
 
-        $result = json_decode($this->retrieveCustomerDetails($link), true);
+        $response = $this->retrieveCustomerDetails($link);
 
-        return $result;
+        $this->verifyResponse($response);
+
+        return json_decode($response->getBody(), true)["data"];
+
     }
 
     protected function retrieveCustomerDetails(string $link)
     {
         return $this->adapter->getHttpClient()
-            ->get($link)
-            ->getBody();
+            ->get($link);
     }
 }

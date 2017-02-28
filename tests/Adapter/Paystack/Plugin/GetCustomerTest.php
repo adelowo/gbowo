@@ -31,6 +31,10 @@ class GetCustomerTest extends \PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(json_encode($data));
 
+        $mockedInterface->shouldReceive("getStatusCode")
+            ->once()
+            ->andReturn(201);
+
         $httpClient = $this->getMockedGuzzle();
 
         $httpClient->shouldReceive('get')
@@ -43,8 +47,35 @@ class GetCustomerTest extends \PHPUnit_Framework_TestCase
 
         $returnedData = $paystack->getCustomer(123);
 
-        $this->assertEquals($data, $returnedData);
+        $this->assertEquals($data["data"], $returnedData);
 
     }
 
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
+    public function testAnInvalidHttpResponseCodeIsEncountered()
+    {
+        $mockedInterface = $this->getMockedResponseInterface();
+
+        $mockedInterface->shouldReceive('getBody')
+            ->never()
+            ->andReturnNull();
+
+        $mockedInterface->shouldReceive("getStatusCode")
+            ->twice()
+            ->andReturn(204);
+
+        $httpClient = $this->getMockedGuzzle();
+
+        $httpClient->shouldReceive('get')
+            ->once()
+            ->andReturn($mockedInterface);
+
+        $paystack = new PaystackAdapter($httpClient);
+
+        $paystack->addPlugin(new GetCustomer(PaystackAdapter::API_LINK));
+
+        $returnedData = $paystack->getCustomer(123);
+    }
 }

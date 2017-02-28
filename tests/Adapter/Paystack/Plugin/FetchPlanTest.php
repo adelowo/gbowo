@@ -65,7 +65,7 @@ class FetchPlanTest extends \PHPUnit_Framework_TestCase
         $mockedResponseInterface->shouldReceive('getStatusCode')
             ->twice()
             ->withNoArgs()
-            ->andReturn(201);
+            ->andReturn(204);
 
         $mockedResponseInterface->shouldReceive('getBody')
             ->never()

@@ -2,11 +2,14 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
+use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use Gbowo\Plugin\AbstractPlugin;
 use function GuzzleHttp\json_decode;
 
 class GetAllTransactions extends AbstractPlugin
 {
+    use VerifyHttpStatusResponseCode;
+
     const TRANSACTION_RELATIVE_LINK = "/transaction";
 
     protected $baseUrl ;
@@ -23,13 +26,12 @@ class GetAllTransactions extends AbstractPlugin
 
     public function handle() : array
     {
-        $response = json_decode(
-            $this->adapter->getHttpClient()
-                ->get($this->baseUrl.self::TRANSACTION_RELATIVE_LINK)
-                ->getBody(),
-            true
-        );
 
-        return $response['data'];
+        $response = $this->adapter->getHttpClient()
+            ->get($this->baseUrl . self::TRANSACTION_RELATIVE_LINK);
+
+        $this->verifyResponse($response);
+
+        return json_decode($response->getBody(), true)["data"];
     }
 }

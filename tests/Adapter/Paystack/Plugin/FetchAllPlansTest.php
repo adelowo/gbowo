@@ -45,7 +45,6 @@ class FetchAllPlansTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Gbowo\Exception\InvalidHttpResponseException
-     * #@expectedExceptionMessage Expected 200.
      */
     public function testAnInvalidHttpExceptionIsReturned()
     {
@@ -59,7 +58,7 @@ class FetchAllPlansTest extends \PHPUnit_Framework_TestCase
 
         $mockedResponseInterface->shouldReceive('getStatusCode')
             ->twice()
-            ->andReturn(201);
+            ->andReturn(204);
 
         $paystack = (new PaystackAdapter($httpClient))->addPlugin(
             new FetchAllPlans(PaystackAdapter::API_LINK)

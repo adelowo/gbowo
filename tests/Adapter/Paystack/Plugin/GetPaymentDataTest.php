@@ -30,6 +30,11 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(json_encode($data));
 
+        $mockedInterface->shouldReceive("getStatusCode")
+            ->once()
+            ->withNoArgs()
+            ->andReturn(200);
+
         $httpClient = $this->getMockedGuzzle();
 
         $httpClient->shouldReceive('get')
@@ -60,9 +65,50 @@ class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
             'message' => GetPaymentData::INVALID_TRANSACTION
         ];
 
+        $mockedInterface->shouldReceive("getStatusCode")
+            ->atMost()
+            ->once()
+            ->andReturn(200);
+
         $mockedInterface->shouldReceive('getBody')
             ->once()
             ->andReturn(json_encode($data));
+
+        $httpClient = $this->getMockedGuzzle();
+
+        $httpClient->shouldReceive('get')
+            ->once()
+            ->andReturn($mockedInterface);
+
+        $paystack = new PaystackAdapter($httpClient);
+
+        $paystack->getPaymentData('token');
+    }
+
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
+    public function testAnInvalidHttpResponseCodeIsReceived()
+    {
+        $mockedInterface = $this->getMockedResponseInterface();
+
+        $data = [
+            'data' =>
+                [
+                    'id' => 5,
+                    'authorization_code' => 'sss',
+                    'transaction_date' => (new DateTime())->format('m-y-j')
+                ],
+            'message' => GetPaymentData::INVALID_TRANSACTION
+        ];
+
+        $mockedInterface->shouldReceive("getStatusCode")
+            ->twice()
+            ->andReturn(204);
+
+        $mockedInterface->shouldReceive('getBody')
+            ->never()
+            ->andReturnNull();
 
         $httpClient = $this->getMockedGuzzle();
 

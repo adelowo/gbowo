@@ -3,13 +3,15 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
+use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use Gbowo\Plugin\AbstractFetchPlan;
 use function GuzzleHttp\json_decode;
 use Psr\Http\Message\ResponseInterface;
-use Gbowo\Exception\InvalidHttpResponseException;
 
 class FetchPlan extends AbstractFetchPlan
 {
+
+    use VerifyHttpStatusResponseCode;
 
     /**
      * @var string The relative link for fetching a certain plan
@@ -38,11 +40,7 @@ class FetchPlan extends AbstractFetchPlan
         $response = $this->adapter->getHttpClient()
             ->get($link);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new InvalidHttpResponseException(
-                "Expected 200. Got {$response->getStatusCode()} instead"
-            );
-        }
+        $this->verifyResponse($response);
 
         return json_decode($response->getBody(), true)['data'];
     }

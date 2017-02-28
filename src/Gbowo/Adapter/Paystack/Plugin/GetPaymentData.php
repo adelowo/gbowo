@@ -2,6 +2,7 @@
 
 namespace Gbowo\Adapter\Paystack\Plugin;
 
+use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use function strcmp;
 use function GuzzleHttp\json_decode;
 use Gbowo\Plugin\AbstractGetPaymentData;
@@ -9,6 +10,9 @@ use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
 
 class GetPaymentData extends AbstractGetPaymentData
 {
+
+    use VerifyHttpStatusResponseCode;
+
     const VERIFIED_TRANSACTION = 'Verification successful';
 
     const INVALID_TRANSACTION = "Invalid transaction reference";
@@ -31,7 +35,11 @@ class GetPaymentData extends AbstractGetPaymentData
     {
         $link = $this->baseUrl . self::TRANSACTION_VERIFICATION . $reference;
 
-        $result = json_decode($this->verifyTransaction($link), true);
+        $response = $this->verifyTransaction($link);
+
+        $this->verifyResponse($response);
+
+        $result = json_decode($response->getBody(), true);
 
         $validated = false;
 
@@ -53,7 +61,6 @@ class GetPaymentData extends AbstractGetPaymentData
     protected function verifyTransaction(string $link)
     {
         return $this->adapter->getHttpClient()
-            ->get($link)
-            ->getBody();
+            ->get($link);
     }
 }

@@ -37,6 +37,10 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
             ->once()
             ->andReturn(\GuzzleHttp\json_encode($data));
 
+        $mockedResonse->shouldReceive("getStatusCode")
+            ->once()
+            ->andReturn(200);
+
         $paystackAdapter = new PaystackAdapter($httpClient);
 
         $paystackAdapter->addPlugin(new ChargeWithToken(PaystackAdapter::API_LINK));
@@ -73,6 +77,49 @@ class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
         $mockedResponse->shouldReceive('getBody')
             ->once()
             ->andReturn(\GuzzleHttp\json_encode($data));
+
+        $mockedResponse->shouldReceive("getStatusCode")
+            ->once()
+            ->andReturn(200); //a valid response code but still fails since the response wasn't expected
+
+        $httpClient = $this->getMockedGuzzle();
+
+        $httpClient->shouldReceive('post')
+            ->once()
+            ->andReturn($mockedResponse);
+
+
+        $paystack = (new PaystackAdapter($httpClient))
+            ->addPlugin(new ChargeWithToken(PaystackAdapter::API_LINK));
+
+        $paystack->chargeWithToken(["token" => "dddd", "email" => "me@adelowolanre.com"]);
+    }
+
+    /**
+     * @expectedException \Gbowo\Exception\InvalidHttpResponseException
+     */
+    public function testAnInvalidHttpResponseCodeIsReceived()
+    {
+        $mockedResponse = $this->getMockedResponseInterface();
+
+        $data = [
+            "message" => "Successful",
+            "data" => [
+                "amount" => 4000,
+                "transaction_date" => (new \DateTime("today"))->format("Y-m-d"),
+                "status" => "success",
+                "reference" => \Gbowo\generateTransRef(),
+                "gateway_response" => "bad"
+            ]
+        ];
+
+        $mockedResponse->shouldReceive('getBody')
+            ->never()
+            ->andReturnNull();
+
+        $mockedResponse->shouldReceive("getStatusCode")
+            ->twice()
+            ->andReturn(204);
 
         $httpClient = $this->getMockedGuzzle();
 

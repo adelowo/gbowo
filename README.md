@@ -232,7 +232,7 @@ class ApiPinger implements PluginInterface
                    false - if the api is down and $throw is set to false.
      * @throws \Exception if the api is down and $throw is set to false.
      */
-    public function handle(bool $shouldThrow)
+    public function handle(bool $shouldThrow = false)
     {
         $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
     

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.4.1
+* Bug Fix - Marked `201` HTTP status code - alongside `200` - as a valid response from Paystack as per [the docs](https://developers.paystack.co/v1.0/docs/errors)
+
 ## 1.4.0 
 * Another improvement in the Plugin architecture. This isn't a breaking change. It's more of a revert to the style employed in <= 1.3.0 as it allows for much more readability and the style employed in 1.3.0 wasn't well thought out.
 * Added two helper methods :

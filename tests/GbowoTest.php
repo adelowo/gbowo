@@ -44,6 +44,10 @@ class GbowoTest extends \PHPUnit_Framework_TestCase
             ->twice()
             ->andReturn(json_encode($data));
 
+        $mockedInterface->shouldReceive("getStatusCode")
+            ->once()
+            ->andReturn(200);
+
         $httpClient->shouldReceive('get')
             ->once()
             ->andReturn($mockedInterface);
