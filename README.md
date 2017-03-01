@@ -137,6 +137,8 @@ var_dump($adapter->getPaymentData($_GET['tran_response'])); // clean up
 * `fetchPlan($planIdentifier)`
 * `fetchAllPlans()`
 
+> Checkout [gbowo-paystack](https://github.com/adelowo/gbowo-paystack) . It contains an additional set of [plugins](#plugins) for the paystack adapter.
+
 [Amplifypay](https://amplifypay.com) :
 
 * `charge(array $data = [])`
