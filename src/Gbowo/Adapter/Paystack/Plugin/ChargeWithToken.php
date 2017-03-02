@@ -47,7 +47,7 @@ class ChargeWithToken extends AbstractChargeWithToken
         return $res['data'];
     }
 
-    public function chargeByToken($data)
+    protected function chargeByToken($data)
     {
         return $this->adapter->getHttpClient()
             ->post($this->baseUrl . self::TOKEN_CHARGE_RELATIVE_LINK, [

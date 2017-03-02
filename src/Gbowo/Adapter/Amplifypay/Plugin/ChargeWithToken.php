@@ -68,7 +68,7 @@ class ChargeWithToken extends AbstractChargeWithToken
      * @param array $data
      * @return ResponseInterface
      */
-    public function chargeByToken($data)
+    protected function chargeByToken($data)
     {
         $link = $this->baseUrl . self::CHARGE_RETURNING_USER;
 
