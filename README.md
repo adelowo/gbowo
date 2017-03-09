@@ -203,6 +203,8 @@ A plugin is a plain PHP class that **MUST** implement the `PluginInterface`. Thi
 * `setAdapter(Adapter $adapter)`
 * `handle(string $reference)` //Typehint as much as you want. 2,3 args ? Your call.
 
+> I have written a [detailed post about this here](https://lanreadelowo.com/blog/2017/03/08/extending-gbowo-via-plugins/)
+
 ```php
 
 namespace Vendor\AdapterName\Plugin;
