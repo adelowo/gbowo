@@ -5,8 +5,9 @@ namespace Gbowo\Tests\Adapter\Paystack;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Exception\InvalidHttpResponseException;
+use PHPUnit\Framework\TestCase;
 
-class PaystackAdapterTest extends \PHPUnit_Framework_TestCase
+class PaystackAdapterTest extends TestCase
 {
 
     use Mockable;

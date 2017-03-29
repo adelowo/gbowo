@@ -2,7 +2,9 @@
 
 namespace Gbowo\Tests;
 
-class HelperFunctionsTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class HelperFunctionsTest extends TestCase
 {
     public function testToKobo()
     {

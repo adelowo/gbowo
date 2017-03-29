@@ -7,8 +7,9 @@ use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\Amplifypay\Exception\KeyMismatchException;
+use PHPUnit\Framework\TestCase;
 
-class AmplifypayAdapterTest extends \PHPUnit_Framework_TestCase
+class AmplifypayAdapterTest extends TestCase
 {
 
     use Mockable;

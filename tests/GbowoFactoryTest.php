@@ -4,8 +4,9 @@ namespace Gbowo\Tests;
 
 use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\GbowoFactory;
+use PHPUnit\Framework\TestCase;
 
-class GbowoFactoryTest extends \PHPUnit_Framework_TestCase
+class GbowoFactoryTest extends TestCase
 {
 
     public function getDefaultAdapters()

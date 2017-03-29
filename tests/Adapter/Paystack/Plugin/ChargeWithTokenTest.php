@@ -6,8 +6,9 @@ use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\ChargeWithToken;
 use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
+use PHPUnit\Framework\TestCase;
 
-class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
+class ChargeWithTokenTest extends TestCase
 {
 
     use Mockable;

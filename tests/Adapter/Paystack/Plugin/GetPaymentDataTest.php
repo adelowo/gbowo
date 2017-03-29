@@ -7,8 +7,9 @@ use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
 use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
+use PHPUnit\Framework\TestCase;
 
-class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
+class GetPaymentDataTest extends TestCase
 {
     use Mockable;
 

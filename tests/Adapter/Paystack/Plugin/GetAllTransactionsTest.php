@@ -7,8 +7,9 @@ use DateTime;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\GetAllTransactions;
+use PHPUnit\Framework\TestCase;
 
-class GetAllTransactionsTest extends \PHPUnit_Framework_TestCase
+class GetAllTransactionsTest extends TestCase
 {
     use Mockable;
 

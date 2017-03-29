@@ -1,15 +1,14 @@
 <?php
 
-
 namespace Adapter\Amplifypay\Plugin;
-
 
 use function Gbowo\env;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Amplifypay\Plugin\FetchPlan;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
+use PHPUnit\Framework\TestCase;
 
-class FetchPlanTest extends \PHPUnit_Framework_TestCase
+class FetchPlanTest extends TestCase
 {
 
     use Mockable;

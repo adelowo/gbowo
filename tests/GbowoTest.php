@@ -6,8 +6,9 @@ use Gbowo\Gbowo;
 use Gbowo\Plugin\AbstractPlugin;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
+use PHPUnit\Framework\TestCase;
 
-class GbowoTest extends \PHPUnit_Framework_TestCase
+class GbowoTest extends TestCase
 {
     use Mockable;
 

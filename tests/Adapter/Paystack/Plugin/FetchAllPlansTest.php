@@ -1,14 +1,13 @@
 <?php
 
-
 namespace Adapter\Paystack\Plugin;
-
 
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\FetchAllPlans;
 use Gbowo\Tests\Mockable;
+use PHPUnit\Framework\TestCase;
 
-class FetchAllPlansTest extends \PHPUnit_Framework_TestCase
+class FetchAllPlansTest extends TestCase
 {
     use Mockable;
 

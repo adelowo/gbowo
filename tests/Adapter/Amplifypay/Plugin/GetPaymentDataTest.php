@@ -8,8 +8,9 @@ use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\Amplifypay\Plugin\GetPaymentData;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use PHPUnit\Framework\TestCase;
 
-class GetPaymentDataTest extends \PHPUnit_Framework_TestCase
+class GetPaymentDataTest extends TestCase
 {
 
     use Mockable;

@@ -7,8 +7,9 @@ use function Gbowo\env;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Adapter\Amplifypay\Plugin\ChargeWithToken;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use PHPUnit\Framework\TestCase;
 
-class ChargeWithTokenTest extends \PHPUnit_Framework_TestCase
+class ChargeWithTokenTest extends TestCase
 {
 
     use Mockable;

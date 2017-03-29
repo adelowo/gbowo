@@ -7,8 +7,9 @@ use DateTime;
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Paystack\PaystackAdapter;
 use Gbowo\Adapter\Paystack\Plugin\GetAllCustomers;
+use PHPUnit\Framework\TestCase;
 
-class GetAllCustomersTest extends \PHPUnit_Framework_TestCase
+class GetAllCustomersTest extends TestCase
 {
     use Mockable;
 

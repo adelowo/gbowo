@@ -2,14 +2,14 @@
 
 namespace Gbowo\Tests\Adapter\Amplifypay\Plugin;
 
-
 use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Adapter\Amplifypay\Plugin\UnsubscribeCustomer;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use PHPUnit\Framework\TestCase;
 
-class UnsubscribeCustomerTest extends \PHPUnit_Framework_TestCase
+class UnsubscribeCustomerTest extends TestCase
 {
 
     use Mockable;
