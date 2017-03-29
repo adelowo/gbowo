@@ -277,71 +277,10 @@ $adapter->addPlugin(new GetAllCustomers(PaystackAdapter::API_LINK))
 
 <h2 id="laravel">Laravel </h2>
 
-- Append the `GbowoServiceProvider` to the `provider` key in `config/app.php`
-
-```php
-Gbowo\Bridge\Laravel\GbowoServiceProvider::class
-```
-
-- Get the config file
-```bash
-artisan vendor:publish
-```
-
-- Optional, you can also make use of facades by adding this to the `aliases` key in `config/app.php`
-
-```php
-
-"Gbowo" : Gbowo\Bridge\Laravel\Facades::class
-
-```
-
-
-##### Usage
-
-```php
-
-class SomeController extends Controller
-{
-    public function chargeCustomer(Request $request)
-    {
-        $paystackAdapter = app("gbowo")->adapter("paystack"); //or "amplifypay"
-        
-        $data = ["email" => $request->get('email') , "amount" => $request->get('amount')];
-        
-        return redirect($paystackAdapter->charge($data));
-    }
-}
-
-```
-
-> Calling the `adapter` method without passing in a string would return an instance of the default adapter set in the config file.
-
-### Adding custom adapters
-
-If you have written a custom adapter, you can include this in your app by doing what is obtainable below in a `ServiceProvider` of your choice.
-
-```php
-
-$config = ["key" => "value", "other" => "stuff"]; //some bootstrap options your adapter might need.
-
-$this->app["gbowo"]->extend("voguepay" , function() use ($config)){
-    return new VoguePayAdapter($config);
-});
-
-```
-
-And you can access this new adapter anywhere in your code via 
-
-```php
-
-$voguePay = app("gbowo")->adapter("voguePay");
-
-$voguePay->charge(['c' => 'd']);
-
-```
+The [Laravel Bridge](https://github.com/adelowo/laravel-gbowo) has been moved to it's own repository.
 
 <h2 id="example"> </h2>
+
 ##### Sample App
 
 [Gbowo-app](https://github.com/adelowo/gbowo-app) - Built with SlimPHP.
