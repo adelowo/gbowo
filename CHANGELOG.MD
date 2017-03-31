@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.0
+
+* Moved Framework integrations into their own repositories. This isn't a BC break as namespaces were preserved. The affected integrations include
+  * The Laravel bridge. [New repo](https://github.com/adelowo/laravel-gbowo)
+
 ## 1.4.1
 * Bug Fix - Marked `201` HTTP status code - alongside `200` - as a valid response from Paystack as per [the docs](https://developers.paystack.co/v1.0/docs/errors)
 
