@@ -277,7 +277,11 @@ $adapter->addPlugin(new GetAllCustomers(PaystackAdapter::API_LINK))
 
 <h2 id="laravel">Laravel </h2>
 
-The [Laravel Bridge](https://github.com/adelowo/laravel-gbowo) has been moved to it's own repository.
+Prior to `v1.5.0`, a Laravel bridge was provided alongside this package but in light of best  interests, it [has been moved to it's own repository](https://github.com/adelowo/laravel-gbowo).
+
+If upgrading from a previous version to `v1.5.0`, please note that you would have to run `composer require adelowo/laravel-gbowo`
+
+> Please note that the decision to give the Laravel bridge a life of it's own doesn't mean BC break. The namespaces were preserved and would continue to work as is.
 
 <h2 id="example"> </h2>
 
