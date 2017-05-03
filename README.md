@@ -5,8 +5,6 @@
 [![Build Status](https://img.shields.io/travis/adelowo/gbowo/master.svg?style=flat-square)](https://travis-ci.org/adelowo/gbowo)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/adelowo/gbowo.svg?style=flat-square)](https://scrutinizer-ci.com/g/adelowo/gbowo/?branch=master)
 [![Quality Score](https://img.shields.io/scrutinizer/g/adelowo/gbowo.svg?style=flat-square)](https://scrutinizer-ci.com/g/adelowo/gbowo)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/bade68de-1511-4d67-85dc-09f6e23c5ea0.svg?style=flat-square)](
-https://insight.sensiolabs.com/projects/bade68de-1511-4d67-85dc-09f6e23c5ea0)
 [![Total Downloads](https://img.shields.io/packagist/dt/adelowo/gbowo.svg?style=flat-square)](https://packagist.org/packages/adelowo/gbowo)
 
 - [Installation](#installation)
