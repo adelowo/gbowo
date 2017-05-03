@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.6.0
+
+* Added context to exceptions being rendered. Prior to this version, if an error occurred while communicating with the API (say an invalid HTTP response code), an exception was thrown and there was no way client code would be able to get the reason for the failure - manually inspect the status code, or even the body.
+
+* A new Exception class was introduced . `Gbowo\Exception\TransactionVerficationFailedException`. This was done as both Paystack and Amplifypay adapters had their own variant of the exception and there was no significant difference between them.
+
+* Removed `Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException` and ``Gbowo\Adapter\Amplifypay\Exception\TransactionVerficationFailedException`. Please see the above.
+
+
 ## 1.5.0
 
 * Moved Framework integrations into their own repositories. This isn't a BC break as namespaces were preserved. The affected integrations include
