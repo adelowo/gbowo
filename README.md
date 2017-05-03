@@ -210,6 +210,7 @@ A plugin is a plain PHP class that **MUST** implement the `PluginInterface`. Thi
 namespace Vendor\AdapterName\Plugin;
 
 use Gbowo/Contract/Plugin/PluginInterface;
+use Gbowo\Exception\TransactionVerficationFailedException;
 
 class ApiPinger implements PluginInterface
 {
@@ -240,12 +241,12 @@ class ApiPinger implements PluginInterface
     {
         $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
     
-        if (200 === $response->getStatusCode()) {
+        if ($response->getStatusCode() != 200 ) {
             return true;
         }
     
         if ($shouldThrow) {
-            throw new \Exception("API is dead", $response->getStatusCode());
+            throw TransactionVerficationFailedException::createFromResponse($response);
         }
     
         return false;
@@ -253,6 +254,8 @@ class ApiPinger implements PluginInterface
 }
 
 ```
+
+> `createFromResponse` is a wrapper that allows client code inspect the response for why there was a failure (say an invalid HTTP status code).. You should call `getResponse` on the exception in other to inspect it. This is also true for official plugins provided by Gbowo.
 
 The `getPluginAccessor` is of tremendous interest here since it determines what plugin the method call should be deferred to. This is done by the magic method `__call` in the [`Pluggable`](src/Gbowo/Traits/Pluggable.php) trait.
 
