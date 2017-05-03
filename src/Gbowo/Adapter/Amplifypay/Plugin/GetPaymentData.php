@@ -5,7 +5,7 @@ namespace Gbowo\Adapter\Amplifypay\Plugin;
 use Gbowo\Plugin\AbstractGetPaymentData;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
-use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 
 class GetPaymentData extends AbstractGetPaymentData
 {
@@ -43,10 +43,8 @@ class GetPaymentData extends AbstractGetPaymentData
 
         $verificationResponse = json_decode($response->getBody(), true);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new InvalidHttpResponseException(
-                "Response status code must be 200. Got {$response->getStatusCode()} instead"
-            );
+        if ($response->getStatusCode() !== 200) {
+            throw InvalidHttpResponseException::createFromResponse($response);
         }
 
         $validated = false;
@@ -56,7 +54,7 @@ class GetPaymentData extends AbstractGetPaymentData
         }
 
         if (false === $validated) {
-            throw new TransactionVerficationFailedException(self::UNAPPROVED_TRANSACTION_STATUS);
+            throw TransactionVerficationFailedException::createFromResponse($response);
         }
 
         $this->verifyKeys($verificationResponse['ApiKey'], $this->apiKeys['apiKey']);

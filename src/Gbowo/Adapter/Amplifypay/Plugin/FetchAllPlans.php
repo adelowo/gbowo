@@ -40,10 +40,8 @@ class FetchAllPlans extends AbstractFetchAllPlans
         $response = $this->adapter->getHttpClient()
             ->get($link);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new InvalidHttpResponseException(
-                "Expected 200. Got{$response->getStatusCode()} instead"
-            );
+        if ($response->getStatusCode() !== 200) {
+            throw InvalidHttpResponseException::createFromResponse($response);
         }
 
         return json_decode($response->getBody(), true);

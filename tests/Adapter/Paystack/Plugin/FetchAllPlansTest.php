@@ -56,7 +56,7 @@ class FetchAllPlansTest extends TestCase
             ->andReturn($mockedResponseInterface);
 
         $mockedResponseInterface->shouldReceive('getStatusCode')
-            ->twice()
+            ->once()
             ->andReturn(204);
 
         $paystack = (new PaystackAdapter($httpClient))->addPlugin(
@@ -64,7 +64,6 @@ class FetchAllPlansTest extends TestCase
         );
 
         $paystack->fetchAllPlans();
-
     }
 
     public function getAllPaystackPlans()

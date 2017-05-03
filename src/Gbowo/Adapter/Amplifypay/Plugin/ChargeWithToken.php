@@ -7,7 +7,7 @@ use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
-use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 use Psr\Http\Message\ResponseInterface;
 
 class ChargeWithToken extends AbstractChargeWithToken
@@ -36,15 +36,15 @@ class ChargeWithToken extends AbstractChargeWithToken
      */
     public function handle(array $args)
     {
-        $response = $this->chargeByToken($args);
+        $res = $this->chargeByToken($args);
 
-        if (200 !== $response->getStatusCode()) {
+        if ($res->getStatusCode() !== 200) {
             throw new InvalidHttpResponseException(
-                "Expected 200 . Got {$response->getStatusCode()}"
+                "Expected 200 . Got {$res->getStatusCode()}"
             );
         }
 
-        $response = json_decode($response->getBody(), true);
+        $response = json_decode($res->getBody(), true);
 
         $validated = false;
 
@@ -53,9 +53,7 @@ class ChargeWithToken extends AbstractChargeWithToken
         }
 
         if (false === $validated) {
-            throw new TransactionVerficationFailedException(
-                "Could not verify that the customer was unsubscribed"
-            );
+            throw TransactionVerficationFailedException::createFromResponse($res);
         }
 
         $this->verifyKeys($response['apiKey'], $this->apiKeys['apiKey']);

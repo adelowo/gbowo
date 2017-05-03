@@ -6,11 +6,10 @@ use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use function strcmp;
 use function GuzzleHttp\json_decode;
 use Gbowo\Plugin\AbstractGetPaymentData;
-use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 
 class GetPaymentData extends AbstractGetPaymentData
 {
-
     use VerifyHttpStatusResponseCode;
 
     const VERIFIED_TRANSACTION = 'Verification successful';
@@ -48,7 +47,7 @@ class GetPaymentData extends AbstractGetPaymentData
         }
 
         if (false === $validated) {
-            throw new TransactionVerficationFailedException(self::INVALID_TRANSACTION);
+            throw TransactionVerficationFailedException::createFromResponse($response);
         }
 
         return $result["data"];

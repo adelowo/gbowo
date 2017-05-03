@@ -6,17 +6,15 @@ use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Adapter\Amplifypay\Plugin\UnsubscribeCustomer;
 use Gbowo\Exception\InvalidHttpResponseException;
-use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 use PHPUnit\Framework\TestCase;
 
 class UnsubscribeCustomerTest extends TestCase
 {
-
     use Mockable;
 
     public function testPluginIsCalled()
     {
-
         $mockedResponse = $this->getMockedResponseInterface();
 
         $httpClient = $this->getMockedGuzzle();
@@ -58,7 +56,6 @@ class UnsubscribeCustomerTest extends TestCase
      */
     public function testAnInvalidHttpStatusCodeIsReceived()
     {
-
         $mockedResponse = $this->getMockedResponseInterface();
 
         $httpClient = $this->getMockedGuzzle();
@@ -68,7 +65,7 @@ class UnsubscribeCustomerTest extends TestCase
             ->andReturn($mockedResponse);
 
         $mockedResponse->shouldReceive("getStatusCode")
-            ->twice()
+            ->once()
             ->andReturn(201);
 
         $response = [
@@ -91,15 +88,13 @@ class UnsubscribeCustomerTest extends TestCase
         ];
 
         $amplifyPay->unsubcribeCustomerFromPlan($data);
-
     }
 
     /**
-     * @expectedException \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
+     * @expectedException \Gbowo\Exception\TransactionVerficationFailedException
      */
     public function testTransactionFailsDueToWrongStatusDescription()
     {
-
         $mockedResponse = $this->getMockedResponseInterface();
 
         $httpClient = $this->getMockedGuzzle();

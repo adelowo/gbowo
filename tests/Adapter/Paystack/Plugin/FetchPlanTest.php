@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class FetchPlanTest extends TestCase
 {
-
     use Mockable;
 
     /**
@@ -49,7 +48,6 @@ class FetchPlanTest extends TestCase
 
     /**
      * @expectedException \Gbowo\Exception\InvalidHttpResponseException
-     * @expectedExceptionMessage Expected 200
      */
     public function testApiReturnsAnInvalidHttpException()
     {
@@ -62,7 +60,7 @@ class FetchPlanTest extends TestCase
             ->andReturn($mockedResponseInterface);
 
         $mockedResponseInterface->shouldReceive('getStatusCode')
-            ->twice()
+            ->once()
             ->withNoArgs()
             ->andReturn(204);
 
@@ -73,7 +71,6 @@ class FetchPlanTest extends TestCase
         $paystack = (new PaystackAdapter($httpClient))->addPlugin(new FetchPlan(PaystackAdapter::API_LINK));
 
         $response = $paystack->fetchPlan("xxxxxxxx");
-
     }
 
     public function getSuccessfulResponse()

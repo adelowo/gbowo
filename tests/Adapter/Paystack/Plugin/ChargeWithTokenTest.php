@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class ChargeWithTokenTest extends TestCase
 {
-
     use Mockable;
 
     public function testChargeWithTokenPluginIsCalled()
@@ -58,7 +57,7 @@ class ChargeWithTokenTest extends TestCase
     }
 
     /**
-     * @expectedException \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
+     * @expectedException \Gbowo\Exception\TransactionVerficationFailedException
      */
     public function testInvalidTransactionMessageIsReturned()
     {
@@ -119,7 +118,7 @@ class ChargeWithTokenTest extends TestCase
             ->andReturnNull();
 
         $mockedResponse->shouldReceive("getStatusCode")
-            ->twice()
+            ->once()
             ->andReturn(204);
 
         $httpClient = $this->getMockedGuzzle();

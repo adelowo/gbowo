@@ -7,12 +7,11 @@ use Gbowo\Tests\Mockable;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Exception\InvalidHttpResponseException;
 use Gbowo\Adapter\Amplifypay\Plugin\GetPaymentData;
-use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 use PHPUnit\Framework\TestCase;
 
 class GetPaymentDataTest extends TestCase
 {
-
     use Mockable;
 
 
@@ -42,7 +41,6 @@ class GetPaymentDataTest extends TestCase
 
     public function testGetPaymentPluginIsCalled()
     {
-
         $res = [
             "ApiKey" => \Gbowo\env("AMPLIFYPAY_API_KEY"),
             "TransID" => "2468563223",
@@ -83,7 +81,6 @@ class GetPaymentDataTest extends TestCase
      */
     public function testInvalidHttpResponseIsReturned()
     {
-
         $res = [
             "ApiKey" => \Gbowo\env("AMPLIFYPAY_API_KEY"),
             "TransID" => "2468563223",
@@ -102,7 +99,7 @@ class GetPaymentDataTest extends TestCase
         ];
 
         $this->mockedResponseInterface->shouldReceive('getStatusCode')
-            ->twice()
+            ->once()
             ->andReturn(201);
 
         $this->mockedResponseInterface->shouldReceive('getBody')
@@ -114,12 +111,10 @@ class GetPaymentDataTest extends TestCase
             ->andReturn($this->mockedResponseInterface);
 
         $returnedData = $this->amplifyPay->getPaymentData('s');
-
-
     }
 
     /**
-     * @expectedException \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
+     * @expectedException \Gbowo\Exception\TransactionVerficationFailedException
      */
     public function testTransactionFailsBecauseRequestWasNotAccepted()
     {
@@ -153,7 +148,5 @@ class GetPaymentDataTest extends TestCase
             ->andReturn($this->mockedResponseInterface);
 
         $this->amplifyPay->getPaymentData('ssssss');
-
     }
-
 }

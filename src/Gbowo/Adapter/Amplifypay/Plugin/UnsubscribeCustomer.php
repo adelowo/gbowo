@@ -7,7 +7,7 @@ use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
 use Gbowo\Adapter\Amplifypay\Traits\KeyVerifier;
 use Gbowo\Exception\InvalidHttpResponseException;
-use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 
 class UnsubscribeCustomer extends AbstractPlugin
 {
@@ -42,7 +42,7 @@ class UnsubscribeCustomer extends AbstractPlugin
     /**
      * @param array $args
      * @return mixed
-     * @throws \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
+     * @throws \Gbowo\Exception\TransactionVerficationFailedException
      * @throws \Gbowo\Exception\InvalidHttpResponseException if we don't get a 200 Status code
      */
     public function handle(array $args)
@@ -54,28 +54,26 @@ class UnsubscribeCustomer extends AbstractPlugin
                 'body' => json_encode(array_merge($this->apiKeys, $args))
             ]);
 
-        if (200 !== $response->getStatusCode()) {
-            throw new InvalidHttpResponseException(
-                "Expected 200 HTTP status , got {$response->getStatusCode()} instead"
-            );
+        if ($response->getStatusCode() !== 200) {
+            throw InvalidHttpResponseException::createFromResponse($response);
         }
 
-        $response = json_decode($response->getBody(), true);
+        $res = json_decode($response->getBody(), true);
 
         $validated = false;
 
-        if (strcmp($response['StatusDesc'], self::STATUS_DESCRIPTION_SUCCESS) === 0) {
+        if (strcmp($res['StatusDesc'], self::STATUS_DESCRIPTION_SUCCESS) === 0) {
             $validated = true;
         }
 
         if (false === $validated) {
-            throw new TransactionVerficationFailedException(self::STATUS_DESCRIPTION_FAILURE);
+            throw TransactionVerficationFailedException::createFromResponse($response);
         }
 
         //not consistent, some transaction with the Amplifypay API returns `ApiKey`, some `apiKey`.
 
-        $this->verifyKeys($response['apiKey'], $this->apiKeys['apiKey']);
+        $this->verifyKeys($res['apiKey'], $this->apiKeys['apiKey']);
 
-        return $response;
+        return $res;
     }
 }

@@ -9,12 +9,10 @@ use PHPUnit\Framework\TestCase;
 
 class PaystackAdapterTest extends TestCase
 {
-
     use Mockable;
 
     public function testPaymentIsMade()
     {
-
         $mockedInterface = $this->getMockedResponseInterface();
 
         $data = ['data' => ['authorization_url' => 'ud']];
@@ -46,14 +44,13 @@ class PaystackAdapterTest extends TestCase
      */
     public function testReturnsInvalidHttpResponse()
     {
-
         $mockedInterface = $this->getMockedResponseInterface();
 
         $data = ['data' => ['authorization_url' => 'ud']];
 
         $mockedInterface->shouldReceive('getStatusCode')
-            ->twice()
-            ->andReturn(201);
+            ->once()
+            ->andReturn(202);
 
         $httpClient = $this->getMockedGuzzle();
 
@@ -64,8 +61,5 @@ class PaystackAdapterTest extends TestCase
         $paystack = new PaystackAdapter($httpClient);
 
         $paystack->charge(['amount' => 6000, 'blah' => 'blah']);
-
-
     }
-
 }

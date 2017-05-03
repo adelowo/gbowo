@@ -15,7 +15,6 @@ class GetAllTransactionsTest extends TestCase
 
     public function testThePluginIsCalled()
     {
-
         $mockedInterface = $this->getMockedResponseInterface();
 
         $data = [
@@ -55,7 +54,6 @@ class GetAllTransactionsTest extends TestCase
         $returnedData = $paystack->getAllTransactions();
 
         $this->assertEquals($data['data'], $returnedData);
-
     }
 
     /**
@@ -85,7 +83,7 @@ class GetAllTransactionsTest extends TestCase
             ->andReturnNull();
 
         $mockedInterface->shouldReceive("getStatusCode")
-            ->twice()
+            ->once()
             ->andReturn(204);
 
         $httpClient = $this->getMockedGuzzle();
@@ -99,6 +97,5 @@ class GetAllTransactionsTest extends TestCase
         $paystack->addPlugin(new GetAllTransactions(PaystackAdapter::API_LINK));
 
         $returnedData = $paystack->getAllTransactions();
-
     }
 }

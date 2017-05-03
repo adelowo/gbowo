@@ -11,6 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Gbowo\Adapter\Paystack\Traits\Payable;
 use Gbowo\Adapter\Paystack\Plugin\GetPaymentData;
 use Gbowo\Adapter\Paystack\Plugin\ChargeWithToken;
+use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 
 /**
  * @method findCustomer(int $customerId)
@@ -22,7 +23,7 @@ use Gbowo\Adapter\Paystack\Plugin\ChargeWithToken;
  */
 class PaystackAdapter implements AdapterInterface
 {
-    use Pluggable, Payable;
+    use Pluggable, Payable, VerifyHttpStatusResponseCode;
 
     /**
      * @var string
@@ -63,12 +64,16 @@ class PaystackAdapter implements AdapterInterface
      */
     public function charge(array $data)
     {
-        $response = $this->decodeResponse(
-            $this->authorizeTransaction("/transaction/initialize", $data),
+        $response = $this->authorizeTransaction("/transaction/initialize", $data);
+
+        $this->verifyResponse($response);
+
+        $data = $this->decodeResponse(
+            $response,
             true
         );
 
-        return $response['data']['authorization_url'];
+        return $data['data']['authorization_url'];
     }
 
     /**

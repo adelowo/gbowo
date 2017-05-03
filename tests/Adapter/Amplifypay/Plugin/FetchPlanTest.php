@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class FetchPlanTest extends TestCase
 {
-
     use Mockable;
 
     /**
@@ -31,7 +30,6 @@ class FetchPlanTest extends TestCase
      */
     public function testFetchPlanPluginIsCalled($response)
     {
-
         $mockedResponse = $this->getMockedResponseInterface();
 
         $httpClient = $this->getMockedGuzzle();
@@ -64,7 +62,6 @@ class FetchPlanTest extends TestCase
 
     /**
      * @expectedException \Gbowo\Exception\InvalidHttpResponseException
-     * @expectedExceptionMessage  Expected 200
      */
     public function testAnInvalidHttpStatusCodeIsReceived()
     {
@@ -78,7 +75,7 @@ class FetchPlanTest extends TestCase
             ->andReturn($mockedResponse);
 
         $mockedResponse->shouldReceive('getStatusCode')
-            ->twice()
+            ->once()
             ->withNoArgs()
             ->andReturn(201);
 
@@ -93,7 +90,6 @@ class FetchPlanTest extends TestCase
 
 
         $receivedResponse = $amplifyPay->fetchPlan(1);
-
     }
 
     public function getSuccessfulResponse()

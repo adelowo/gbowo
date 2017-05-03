@@ -6,12 +6,11 @@ use Gbowo\Tests\Mockable;
 use function Gbowo\env;
 use Gbowo\Adapter\Amplifypay\AmplifypayAdapter;
 use Gbowo\Adapter\Amplifypay\Plugin\ChargeWithToken;
-use Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 use PHPUnit\Framework\TestCase;
 
 class ChargeWithTokenTest extends TestCase
 {
-
     use Mockable;
 
     public function testChargeWithTokenPluginIsCalled()
@@ -72,13 +71,11 @@ class ChargeWithTokenTest extends TestCase
         $adapter = new AmplifypayAdapter($httpclient);
 
         $adapter->chargeWithToken(["transactionRef" => 333, "authCode" => 3]);
-
-
     }
 
 
     /**
-     * @expectedException \Gbowo\Adapter\AmplifyPay\Exception\TransactionVerficationFailedException
+     * @expectedException \Gbowo\Exception\TransactionVerficationFailedException
      */
     public function testAnInvalidStatusDescriptionIsReceived()
     {
@@ -110,7 +107,5 @@ class ChargeWithTokenTest extends TestCase
         $adapter = new AmplifypayAdapter($httpclient);
 
         $adapter->chargeWithToken(["transactionRef" => 333, "authCode" => 3]);
-
-
     }
 }

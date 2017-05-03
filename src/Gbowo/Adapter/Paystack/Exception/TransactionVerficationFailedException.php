@@ -2,8 +2,8 @@
 
 namespace Gbowo\Adapter\Paystack\Exception;
 
-use Exception;
+use Gbowo\Exception\HTTPResponseException;
 
-class TransactionVerficationFailedException extends Exception
+class TransactionVerficationFailedException extends HTTPResponseException
 {
 }

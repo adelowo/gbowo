@@ -50,7 +50,7 @@ class GetPaymentDataTest extends TestCase
     }
 
     /**
-     * @expectedException \Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException
+     * @expectedException \Gbowo\Exception\TransactionVerficationFailedException
      */
     public function testGetPaymentIsCalledButRaisesAnException()
     {
@@ -104,7 +104,7 @@ class GetPaymentDataTest extends TestCase
         ];
 
         $mockedInterface->shouldReceive("getStatusCode")
-            ->twice()
+            ->once()
             ->andReturn(204);
 
         $mockedInterface->shouldReceive('getBody')

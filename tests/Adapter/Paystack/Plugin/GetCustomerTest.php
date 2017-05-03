@@ -11,12 +11,10 @@ use PHPUnit\Framework\TestCase;
 
 class GetCustomerTest extends TestCase
 {
-
     use Mockable;
 
     public function testFindCustomerPluginIsCalled()
     {
-
         $mockedInterface = $this->getMockedResponseInterface();
 
         $data = [
@@ -49,7 +47,6 @@ class GetCustomerTest extends TestCase
         $returnedData = $paystack->getCustomer(123);
 
         $this->assertEquals($data["data"], $returnedData);
-
     }
 
     /**
@@ -64,7 +61,7 @@ class GetCustomerTest extends TestCase
             ->andReturnNull();
 
         $mockedInterface->shouldReceive("getStatusCode")
-            ->twice()
+            ->once()
             ->andReturn(204);
 
         $httpClient = $this->getMockedGuzzle();

@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class FetchAllPlansTest extends TestCase
 {
-
     use Mockable;
 
     /**
@@ -61,7 +60,6 @@ class FetchAllPlansTest extends TestCase
 
     /**
      * @expectedException \Gbowo\Exception\InvalidHttpResponseException
-     * @expectedExceptionMessage Expected 200
      */
     public function testAnInvalidHttpResponseIsReceived()
     {
@@ -75,7 +73,7 @@ class FetchAllPlansTest extends TestCase
             ->andReturn($mockedResponse);
 
         $mockedResponse->shouldReceive('getStatusCode')
-            ->twice()
+            ->once()
             ->andReturn(201);
 
         $mockedResponse->shouldReceive('getBody')
@@ -116,6 +114,5 @@ class FetchAllPlansTest extends TestCase
                 "DateCreated" => (new \DateTime())->setTimestamp(strtotime("last year"))->format("Y-m-d")
             ]
         ];
-
     }
 }

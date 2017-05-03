@@ -6,11 +6,10 @@ use Gbowo\Adapter\Paystack\Traits\VerifyHttpStatusResponseCode;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
 use Gbowo\Plugin\AbstractChargeWithToken;
-use Gbowo\Adapter\Paystack\Exception\TransactionVerficationFailedException;
+use Gbowo\Exception\TransactionVerficationFailedException;
 
 class ChargeWithToken extends AbstractChargeWithToken
 {
-
     use VerifyHttpStatusResponseCode;
 
     /**
@@ -39,9 +38,7 @@ class ChargeWithToken extends AbstractChargeWithToken
         $res = json_decode($response->getBody(), true);
 
         if (strcmp($res['data']['gateway_response'], self::SUCCESS_MESSAGE) !== 0) {
-            throw new TransactionVerficationFailedException(
-                "The transaction was not successful"
-            );
+            throw TransactionVerficationFailedException::createFromResponse($response) ;
         }
 
         return $res['data'];
