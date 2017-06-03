@@ -82,19 +82,17 @@ class AmplifypayAdapter implements AdapterInterface
     protected function authorizeTransaction(string $relative, array $data = null)
     {
         /**
-         * @var ResponseInterface $data
+         * @var ResponseInterface $response
          */
-        $data = $this->httpClient->post(self::BASE_URL . $relative, [
+        $response = $this->httpClient->post(self::BASE_URL . $relative, [
             'body' => json_encode($data)
         ]);
 
-        if ($data->getStatusCode() === 200) {
-            return $data;
+        if ($response->getStatusCode() === 200) {
+            return $response;
         }
 
-        throw new InvalidHttpResponseException(
-            "Response Status should be 200, but got {$data->getStatusCode()}"
-        );
+        throw InvalidHttpResponseException::createFromResponse($response);
     }
 
     /**
