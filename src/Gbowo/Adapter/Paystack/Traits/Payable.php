@@ -18,7 +18,7 @@ trait Payable
      * @param array  $data
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function authorizeTransaction(string $relative, array $data = null)
+    protected function authorizeTransaction(string $relative, array $data = [])
     {
         return $this->httpClient->post($this->baseUrl . $relative, [
             'body' => json_encode($data)

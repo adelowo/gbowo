@@ -68,22 +68,16 @@ class PaystackAdapter implements AdapterInterface
 
         $this->verifyResponse($response);
 
-        $data = $this->decodeResponse(
-            $response,
-            true
-        );
-
-        return $data['data']['authorization_url'];
+        return $this->decodeResponse($response)['data']['authorization_url'];
     }
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param bool                                $associative
      * @return mixed
      */
-    protected function decodeResponse(ResponseInterface $response, $associative = false)
+    protected function decodeResponse(ResponseInterface $response)
     {
-        return json_decode($response->getBody(), $associative);
+        return json_decode($response->getBody(), true);
     }
 
     /**
