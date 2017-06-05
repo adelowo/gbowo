@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.1
+
+* Added response context for the AmplifyPayAdapter.
+
 ## 1.6.0
 
 * Added context to exceptions being rendered. Prior to this version, if an error occurred while communicating with the API (say an invalid HTTP response code), an exception was thrown and there was no way client code would be able to get the reason for the failure - manually inspect the status code, or even the body.
@@ -17,7 +21,7 @@
 ## 1.4.1
 * Bug Fix - Marked `201` HTTP status code - alongside `200` - as a valid response from Paystack as per [the docs](https://developers.paystack.co/v1.0/docs/errors)
 
-## 1.4.0 
+## 1.4.0
 * Another improvement in the Plugin architecture. This isn't a breaking change. It's more of a revert to the style employed in <= 1.3.0 as it allows for much more readability and the style employed in 1.3.0 wasn't well thought out.
 * Added two helper methods :
 
@@ -32,7 +36,7 @@
 
 ## 1.2.0
 * Added `Gbowo\Exception\UnknownAdapterException`. This is thrown only by the `Gbowo\GbowoFactory`
-* Improvement/BugFix - Return the instance attached to `Gbowo\GbowoFactory` ___as is___ rather than re-instantiating it - `new`ing it up . 
+* Improvement/BugFix - Return the instance attached to `Gbowo\GbowoFactory` ___as is___ rather than re-instantiating it - `new`ing it up .
 This is to prevent running into dependency issues, as a custom adapter might require some certain class/config value in it's constructor. If that happens, `Gbowo\GbowoFactory` cannot figure that out as it is not a `Container`.
 
 ## 1.1.2
@@ -41,7 +45,7 @@ This is to prevent running into dependency issues, as a custom adapter might req
 ## 1.1.1
 
 * Added `\Gbowo\GbowoFactory` for easy creation of adapters and adding custom adapters natively.
-* Fixed a bug that was experienced when using __Gbowo__ with Laravel. 
+* Fixed a bug that was experienced when using __Gbowo__ with Laravel.
   Both expose a `env` function. And this made __Gbowo__'s `env` to fail since the function didn't get registered.
 
 
