@@ -30,7 +30,8 @@
     ]
   },
   "suggest": {
-    "vlucas/phpdotenv": "Keep private tokens (secret keys) out of your code by loading them into `$_ENV` automagically from a .env file (~2.2)."
+    "vlucas/phpdotenv": "Keep private tokens (secret keys) out of your code by loading them into `$_ENV` automagically from a .env file (~2.2).",
+    "adelowo/gbowo-paystack": "Extra plugins for the Paystack adapter"
   },
   "autoload-dev": {
     "psr-4": {
