@@ -23,12 +23,17 @@ class GbowoFactory
     public function __construct(array $types = [])
     {
         $this->setDefaultAdapters();
+        $this->addCustomAdapters($types);
+    }
 
+    protected function addCustomAdapters(array $types)
+    {
         if (!empty($types)) {
             $this->validateCustomAdapters($types);
             $this->availableAdapters = array_merge($this->availableAdapters, $types);
         }
     }
+
 
     protected function setDefaultAdapters()
     {
