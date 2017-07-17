@@ -12,7 +12,7 @@ abstract class HTTPResponseException extends Exception implements ResponseExcept
 
     public static function createFromResponse(
         ResponseInterface $response
-     ): Exception {
+    ) : Exception {
         $ret = new static();
 
         $ret->setResponse($response);

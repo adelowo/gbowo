@@ -38,7 +38,7 @@ class ChargeWithToken extends AbstractChargeWithToken
         $res = json_decode($response->getBody(), true);
 
         if (strcmp($res['data']['gateway_response'], self::SUCCESS_MESSAGE) !== 0) {
-            throw TransactionVerficationFailedException::createFromResponse($response) ;
+            throw TransactionVerficationFailedException::createFromResponse($response);
         }
 
         return $res['data'];
@@ -47,8 +47,10 @@ class ChargeWithToken extends AbstractChargeWithToken
     protected function chargeByToken($data)
     {
         return $this->adapter->getHttpClient()
-            ->post($this->baseUrl . self::TOKEN_CHARGE_RELATIVE_LINK, [
+            ->post(
+                $this->baseUrl . self::TOKEN_CHARGE_RELATIVE_LINK, [
                 'body' => json_encode($data)
-            ]);
+                ]
+            );
     }
 }

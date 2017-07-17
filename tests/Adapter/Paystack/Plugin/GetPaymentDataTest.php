@@ -24,7 +24,7 @@ class GetPaymentDataTest extends TestCase
                     'authorization_code' => 'sss',
                     'transaction_date' => (new DateTime())->format('m-y-j')
                 ],
-            'message' => GetPaymentData::VERIFIED_TRANSACTION
+                'message' => GetPaymentData::VERIFIED_TRANSACTION
         ];
 
         $mockedInterface->shouldReceive('getBody')
@@ -63,7 +63,7 @@ class GetPaymentDataTest extends TestCase
                     'authorization_code' => 'sss',
                     'transaction_date' => (new DateTime())->format('m-y-j')
                 ],
-            'message' => GetPaymentData::INVALID_TRANSACTION
+                'message' => GetPaymentData::INVALID_TRANSACTION
         ];
 
         $mockedInterface->shouldReceive("getStatusCode")
@@ -100,7 +100,7 @@ class GetPaymentDataTest extends TestCase
                     'authorization_code' => 'sss',
                     'transaction_date' => (new DateTime())->format('m-y-j')
                 ],
-            'message' => GetPaymentData::INVALID_TRANSACTION
+                'message' => GetPaymentData::INVALID_TRANSACTION
         ];
 
         $mockedInterface->shouldReceive("getStatusCode")

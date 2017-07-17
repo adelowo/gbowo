@@ -43,7 +43,7 @@ trait Pluggable
     /**
      * @param string                                   $accessor The plugin accessor
      * @param array                                    $argument Args to pass to the plugin's `handle` method
-     * @param \Gbowo\Contract\Adapter\AdapterInterface $adapter The adapter in use.
+     * @param \Gbowo\Contract\Adapter\AdapterInterface $adapter  The adapter in use.
      * @throws \LogicException if the plugin does not have an handle method
      * @return mixed
      */

@@ -95,13 +95,15 @@ class PaystackAdapter implements AdapterInterface
      */
     protected function setHttpClient(string $token) : Client
     {
-        return new Client([
+        return new Client(
+            [
             'base_uri' => $this->baseUrl,
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
             ]
-        ]);
+            ]
+        );
     }
 }

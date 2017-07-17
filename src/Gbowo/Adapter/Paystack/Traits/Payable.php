@@ -20,8 +20,10 @@ trait Payable
      */
     protected function authorizeTransaction(string $relative, array $data = [])
     {
-        return $this->httpClient->post($this->baseUrl . $relative, [
+        return $this->httpClient->post(
+            $this->baseUrl . $relative, [
             'body' => json_encode($data)
-        ]);
+            ]
+        );
     }
 }

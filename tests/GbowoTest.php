@@ -82,7 +82,8 @@ class GbowoTest extends TestCase
     {
         $stub = ["dummy", ["token" => 111]];
 
-        $dummy = new class extends AbstractPlugin {
+        $dummy = new class extends AbstractPlugin
+        {
             protected $baseUrl;
 
             public function getPluginAccessor() : string
@@ -114,7 +115,8 @@ class GbowoTest extends TestCase
     {
         $stub = ["dummy", ["token" => 111]];
 
-        $dummy = new class extends AbstractPlugin {
+        $dummy = new class extends AbstractPlugin
+        {
             protected $baseUrl;
 
             public function getPluginAccessor() : string

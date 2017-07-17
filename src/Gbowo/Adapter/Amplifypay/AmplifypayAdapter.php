@@ -84,9 +84,11 @@ class AmplifypayAdapter implements AdapterInterface
         /**
          * @var ResponseInterface $response
          */
-        $response = $this->httpClient->post(self::BASE_URL . $relative, [
+        $response = $this->httpClient->post(
+            self::BASE_URL . $relative, [
             'body' => json_encode($data)
-        ]);
+            ]
+        );
 
         if ($response->getStatusCode() === 200) {
             return $response;
@@ -109,13 +111,15 @@ class AmplifypayAdapter implements AdapterInterface
      */
     protected function setHttpClient() : Client
     {
-        return new Client([
+        return new Client(
+            [
             'base_uri' => self::BASE_URL,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
                 'Cache-Control' => 'no-cache'
             ]
-        ]);
+            ]
+        );
     }
 }

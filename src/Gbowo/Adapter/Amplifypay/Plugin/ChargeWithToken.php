@@ -71,8 +71,10 @@ class ChargeWithToken extends AbstractChargeWithToken
         $link = $this->baseUrl . self::CHARGE_RETURNING_USER;
 
         return $this->adapter->getHttpClient()
-            ->post($link, [
+            ->post(
+                $link, [
                 'body' => json_encode(array_merge($this->apiKeys, $data))
-            ]);
+                ]
+            );
     }
 }
