@@ -87,7 +87,7 @@ A sample `.env.example` has been provided in the `resources` directory. You can 
 
 $paystack = new \Gbowo\Adapter\Paystack\PaystackAdapter();
 
-$amplifyPay = new \Gbowo\Adapter\Amplifypay\AmplfiypayAdapter()
+$amplifyPay = new \Gbowo\Adapter\Amplifypay\AmplifypayAdapter()
 
 ```
 
@@ -99,7 +99,7 @@ You can prevent this "auto-wiring" by providing an instance of Guzzlehttp Client
 
 $client = new \GuzzleHttp\Client(['key' => "value"]);
 
-$amplifyPay = new \Gbowo\Adapter\Amplifypay\AmplfiypayAdapter($client)
+$amplifyPay = new \Gbowo\Adapter\Amplifypay\AmplifypayAdapter($client)
 
 ```
 
