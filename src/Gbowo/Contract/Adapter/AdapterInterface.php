@@ -7,7 +7,7 @@ namespace Gbowo\Contract\Adapter;
  * Interface Adapter
  * @package Gbowo\Contract\Adapter
  */
-interface AdapterInterface
+interface AdapterInterface extends AdapterClientInterface
 {
 
     /**
