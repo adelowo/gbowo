@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.7.0
+
+* Added `Gbowo\Contract\Adapter\AdapterClientInterface`.. This is to make the `getHttpClient` (adapters already have) part of their specified public API
+
+* Removed deprecated `Gbowo\Gbowo`.. This class was actually deprecated in the initial 1.0.0 release.
+
 ## 1.6.1
 
 * Added response context for the AmplifyPayAdapter.
