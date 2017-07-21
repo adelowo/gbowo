@@ -5,6 +5,7 @@ namespace Gbowo\Tests;
 use Gbowo\Contract\Adapter\AdapterInterface;
 use Gbowo\GbowoFactory;
 use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Client;
 
 class GbowoFactoryTest extends TestCase
 {
@@ -46,6 +47,12 @@ class GbowoFactoryTest extends TestCase
             {
                 return "charged by voguepay";
             }
+
+            public function getHttpClient() : Client
+            {
+                throw new \Exception("Whoops");
+            
+            }
         };
 
         //Man can but to dream
@@ -62,6 +69,11 @@ class GbowoFactoryTest extends TestCase
             {
                 return "charged by interswitch";
             }
+        
+            public function getHttpClient() : Client
+            {
+                throw new \Exception("Whoops");
+            }    
         };
 
         return [
@@ -121,6 +133,11 @@ class GbowoFactoryTest extends TestCase
             public function charge(array $data)
             {
                 return "charged by new paystack adapter";
+            }
+
+            public function getHttpClient() : Client
+            {
+                throw new \Exception("Whoops");
             }
         };
 
