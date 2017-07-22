@@ -240,14 +240,14 @@ class ApiPinger implements PluginInterface
         $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
     
         if ($response->getStatusCode() != 200 ) {
-            return true;
+            return false;
         }
     
         if ($shouldThrow) {
             throw TransactionVerficationFailedException::createFromResponse($response);
         }
     
-        return false;
+        return true;
     }
 }
 
