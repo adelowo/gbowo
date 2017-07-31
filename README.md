@@ -45,7 +45,7 @@ require_once 'vendor/autoload.php';
 
 $adapter = new \Gbowo\Adapter\Paystack\PaystackAdapter();
 
-$response = $adapter->charge(); 
+$response = $adapter->charge();
 
 ```
 
@@ -183,7 +183,7 @@ $interswitchAdapter->charge(['a' => 'b', 'c' => 'd']);
 Different gateways implement various features and there's no way we can support all of them without losing our sanity.
 
 Supporting all features would lead to a bloat (an interface, class bloat). Take for instance : create `InterfaceX` to support feature X for `AdapterE` while `AdapterE` still makes use of features (and therefore interfaces) for `AdapterA`,`AdapterQ` and so on. Now imagine this scenario plays out for 4 -5 adapters.
- 
+
  Apart from the bloat, we cannot create a (visual) diagram of which interfaces are being used and it'd lead to a situation where we cannot remove a certain class or interface because we do not know who (what adapter) depends on them.
 
 To prevent this, _Gbowo_ implements a plugin architecture that eases extension or "adding new methods/behaviours" to an existing adapter without inheritance or touching core code. To achieve this, there is a `Pluggable` trait that contains the logic and **MUST** be imported by an adapter implementation.
@@ -224,7 +224,7 @@ class ApiPinger implements PluginInterface
     public function setAdapter(AdapterInterface $adapter)
     {
         //useful for helpers like getting stuffs from "accessors" on the adapter instance like the already configured HttpClient object
-        $this->adapter = $adapter ; 
+        $this->adapter = $adapter ;
         return $this;
     }
 
@@ -238,16 +238,16 @@ class ApiPinger implements PluginInterface
     public function handle(bool $shouldThrow = false)
     {
         $response = $this->adapter->getHttpClient()->get("https://api.homepage.com");
-    
-        if ($response->getStatusCode() != 200 ) {
-            return false;
+
+        if ($response->getStatusCode() === 200 ) {
+            return true;
         }
-    
+
         if ($shouldThrow) {
             throw TransactionVerficationFailedException::createFromResponse($response);
         }
-    
-        return true;
+
+        return false;
     }
 }
 
