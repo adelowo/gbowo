@@ -6,7 +6,7 @@ use Gbowo\Contract\Plugin\PluginInterface;
 use Gbowo\Contract\Adapter\AdapterInterface;
 
 /**
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class AbstractPlugin
  * @package Gbowo\Plugin
  */

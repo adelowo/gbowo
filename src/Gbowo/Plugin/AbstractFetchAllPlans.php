@@ -4,7 +4,7 @@
 namespace Gbowo\Plugin;
 
 /**
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class AbstractFetchAllPlans
  * @package Gbowo\Plugin
  */

@@ -5,7 +5,7 @@ namespace Gbowo\Plugin;
 
 /**
  * Abstract plugin to allow a consistent api amongst adapters that support "fetching a specific plan"
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class AbstractFetchPlan
  * @package Gbowo\Plugin
  */

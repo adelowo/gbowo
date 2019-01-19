@@ -3,7 +3,7 @@
 namespace Gbowo\Contract\Adapter;
 
 /**
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Interface Adapter
  * @package Gbowo\Contract\Adapter
  */

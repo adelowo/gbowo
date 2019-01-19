@@ -5,7 +5,7 @@ namespace Gbowo\Exception;
 use Exception;
 
 /**
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class PluginNotFoundException
  * @package Gbowo\Exception
  */

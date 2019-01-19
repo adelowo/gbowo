@@ -6,7 +6,7 @@ use function GuzzleHttp\json_encode;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class Payable
  * @package Gbowo\Adapter\Paystack\Traits
  */

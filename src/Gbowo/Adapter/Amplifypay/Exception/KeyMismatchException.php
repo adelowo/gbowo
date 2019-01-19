@@ -8,7 +8,7 @@ use Exception;
  * Throw an exception if the key used to initiate a transaction does not match what Amplifypay returns.
  * Key verification is an AmplifyPay best practice
  * @see https://amplifypay.com/developers Verifying transactions
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class KeyMismatchException
  * @package Gbowo\Adapter\Amplifypay\Exception
  */

@@ -8,7 +8,7 @@ use Gbowo\Adapter\Amplifypay\Exception\KeyMismatchException;
  * An Amplifypay best practice is to verify if the returned `ApiKey` in a response (HTTP 200) matches what was passed
  * to them.
  * @see https://amplifypay.com/developers Verifying transactions
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class KeyVerifier
  * @package Gbowo\Adapter\Amplifypay\Traits
  */

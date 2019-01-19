@@ -18,7 +18,7 @@ use Gbowo\Adapter\Amplifypay\Plugin\UnsubscribeCustomer;
  * @method chargeWithToken(array $data)
  * @method unsubcribeCustomerFromPlan(array $data)
  * @method getPaymentData(string $transactionReference)
- * @author Lanre Adelowo <me@adelowolanre.com>
+ * @author Lanre Adelowo <yo@lanre.wtf>
  * Class AmplifypayAdapter
  * @package Gbowo\Adapter\Amplifypay
  */
