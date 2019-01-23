@@ -27,16 +27,6 @@ Install Gbowo via one of the following methods :
     composer require "adelowo/gbowo" : "~1.0"
 ```
 
-- Repo Cloning :
-
-```bash
-    git clone https://github.com/adelowo/gbowo.git
-```
-
-- [Download a release](https://github.com/adelowo/gbowo/releases)
-
-> If downloading the library without composer or cloning directly from the repository, you'd have to write an autoloader yourself. My bad
-
 <h2 id="usage"> Usage </h2>
 
 ```php
