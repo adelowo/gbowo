@@ -101,7 +101,8 @@ class PaystackAdapter implements AdapterInterface
             'headers' => [
                 'Authorization' => 'Bearer ' . $token,
                 'Content-Type' => 'application/json',
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'User-Agent' => 'PHP/Gbowo'
             ]
             ]
         );
