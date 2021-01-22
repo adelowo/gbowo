@@ -2,6 +2,6 @@
 
 namespace Gbowo\Exception;
 
-class TransactionVerficationFailedException extends HTTPResponseException
+class TransactionVerificationFailedException extends HTTPResponseException
 {
 }
